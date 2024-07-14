@@ -2,12 +2,12 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "What is the Doppler shift when the receiver is moving towards the source?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "positive",
+        "b": "negative",
+        "c": "zero",
+        "d": "constant"
       },
       "explanations": {
         "a": "Explanation 1  <a href='www.google.com'>here</a>",
@@ -19,12 +19,29 @@
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": " How does a larger delay spread affect the coherence bandwidth?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "It increases the coherence bandwidth",
+        "b": "It decreases the coherence bandwidth",
+        "c": "It has no effect on the coherence bandwidth",
+        "d": "It makes the coherence bandwidth constant"
+      },
+      "explanations": {
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": " In a scenario where a direct path has a length of 150 meters and the reflected path has a length of 200 meters, calculate the delay spread.",
+      "answers": {
+        "a": "0.167\u03BCs",
+        "b": "1.67ms",
+        "c": "1.67\u03BCs",
+        "d": "0.167ms"
       },
       "explanations": {
         "a": "Explanation 1  <a href='www.google.com'>here</a>",
