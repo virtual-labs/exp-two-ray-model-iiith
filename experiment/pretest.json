@@ -2,13 +2,13 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "What is the primary medium through which wireless communication operates?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
-      },
+        "a": "Sound waves",
+        "b": "Electromagnetic radiation",
+        "c": "Water waves",
+        "d": "Mechanical vibrations"
+      }, 
       "explanations": {
         "a": "Explanation 1  <a href='www.google.com'>here</a>",
         "b": "Explanation 2",
@@ -19,12 +19,12 @@
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "What happens to the electric field strength as the distance between the transmitting and receiving antennas increases?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "It increases",
+        "b": "It remains constant",
+        "c": "It decreases",
+        "d": "It fluctuates"
       },
       "explanations": {
         "a": "Explanation 1  <a href='www.google.com'>here</a>",
@@ -34,6 +34,57 @@
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
-    }
+    },
+     {
+      "question": "What phenomenon occurs when the receiver moves away from the transmitter?",
+      "answers": {
+        "a": "Frequency increases",
+        "b": "No change in frequency",
+        "c": "Frequency decreases",
+        "d": "Signal strength increases"
+      },
+      "explanations": {
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+     {
+      "question": " If a transmitter sends a sinusoidal signal with a frequency of 1 MHz and the receiver is placed 300 meters away from the transmitter in free space, what will be the time delay for the signal to reach the receiver? (Speed of light = $3\times10^8$m/s)",
+      "answers": {
+        "a": "0.01s",
+        "b": "0.001s",
+        "c": "0.02s",
+        "d": "0.1s"
+      },
+      "explanations": {
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+   {
+      "question": " If the initial distance is 100 meters and the velocity of the receiver is 10 m/s(moving away), calculate the distance between the transmitter and the receiver after 5 seconds.",
+      "answers": {
+        "a": "150m",
+        "b": "200m",
+        "c": "120m",
+        "d": "50m"
+      },
+      "explanations": {
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    } 
   ]
 }
