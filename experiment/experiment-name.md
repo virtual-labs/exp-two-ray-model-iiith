@@ -1,1 +1,1 @@
-## Experiment name
+# Two Ray model based wireless channels
