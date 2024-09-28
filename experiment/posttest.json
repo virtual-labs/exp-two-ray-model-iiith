@@ -10,10 +10,10 @@
         "d": "constant"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Yes, the Doppler shift is positive when the receiver is moving towards the source.",
+        "b": "The doppler shift is neagive only hen the reciever is moving away from the source.",
+        "c": "Doppler shift is zero when the receiver is not moving.",
+        "d": "Doppler shift is not constant."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
@@ -27,12 +27,12 @@
         "d": "It makes the coherence bandwidth constant"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "delay spead and coherence bandwidth are inversely proportional. So, a larger delay spread increases the coherence bandwidth.",
+        "b": "Yes, a larger delay spread decreases the coherence bandwidth.",
+        "c": "Delay spread and coherence bandwidth are inversely proportional. So, a larger delay spread increases the coherence bandwidth.",
+        "d": "Delay spread and coherence bandwidth are inversely proportional. So, a larger delay spread increases the coherence bandwidth."
       },
-      "correctAnswer": "c",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },
     {
@@ -44,12 +44,12 @@
         "d": "0.167ms"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "a": "",
         "b": "Explanation 2",
         "c": "Explanation 2",
         "d": "Explanation 2"
       },
-      "correctAnswer": "c",
+      "correctAnswer": "a",
       "difficulty": "beginner"
     }
   ]
