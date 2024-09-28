@@ -10,12 +10,12 @@
         "d": "Mechanical vibrations"
       }, 
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "The primary medium through which wireless communication operates is electromagnetic radiation.",
+        "b": "Yes, this is correct. The primary medium through which wireless communication operates is electromagnetic radiation.",
+        "c": "The primary medium through which wireless communication operates is electromagnetic radiation.",
+        "d": "The primary medium through which wireless communication operates is electromagnetic radiation."
       },
-      "correctAnswer": "a",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },
     {
@@ -27,10 +27,10 @@
         "d": "It fluctuates"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "The electric field strength decreases as the distance between the transmitting and receiving antennas increases.",
+        "b": "The electric field strength decreases as the distance between the transmitting and receiving antennas increases.",
+        "c": "Yes this is correct. The electric field strength decreases as the distance between the transmitting and receiving antennas increases.",
+        "d": "The electric field strength decreases as the distance between the transmitting and receiving antennas increases."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
@@ -44,10 +44,10 @@
         "d": "Signal strength increases"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "The frequency increases when the receiver moves towards the transmitter.",
+        "b": "There is no change in frequence when the receiver is not moving.",
+        "c": "Yes, this is correct. The frequency decreases when the receiver moves away from the transmitter.",
+        "d": "The signal strength does not increase when the receiver moves away from the transmitter."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
@@ -55,16 +55,16 @@
      {
       "question": " If a transmitter sends a sinusoidal signal with a frequency of 1 MHz and the receiver is placed 300 meters away from the transmitter in free space, what will be the time delay for the signal to reach the receiver? (Speed of light = $3\times10^8$m/s)",
       "answers": {
-        "a": "0.01s",
-        "b": "0.001s",
-        "c": "0.02s",
-        "d": "0.1s"
+        "a": "0.01 us",
+        "b": "0.001 us",
+        "c": "1 us",
+        "d": "0.1 us"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "The time delay is the time taken for the signal to travel from the transmitter to the receiver. The time delay is 1 us.",
+        "b": "The time delay is the time taken for the signal to travel from the transmitter to the receiver. The time delay is 1 us.",
+        "c": "Yes, this is correct. The time delay is 1 us.",
+        "d": "The time delay is the time taken for the signal to travel from the transmitter to the receiver. The time delay is 1 us."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
@@ -78,12 +78,12 @@
         "d": "50m"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Yes, this is correct. The distance between the transmitter and the receiver increases by 50 meters every  5 seconds. After 5 seconds, the distance will be 150 meters.",
+        "b": "The distance between the transmitter and the receiver increases by 50 meters every  5 seconds. After 5 seconds, the distance will be 150 meters.",
+        "c": "The distance between the transmitter and the receiver increases by 50 meters every  5 seconds. After 5 seconds, the distance will be 150 meters.",
+        "d": "The distance between the transmitter and the receiver increases by 50 meters every  5 seconds. After 5 seconds, the distance will be 150 meters."
       },
-      "correctAnswer": "c",
+      "correctAnswer": "a",
       "difficulty": "beginner"
     } 
   ]

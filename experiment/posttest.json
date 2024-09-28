@@ -44,10 +44,10 @@
         "d": "0.167ms"
       },
       "explanations": {
-        "a": "",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Yes, this is correct. The delay spread is the difference in time between the direct and reflected paths. The difference is 50 meters, which is 0.167\u03BCs.",
+        "b": "The delay spread is the difference in time between the direct and reflected paths. The difference is 50 meters, which is 0.167\u03BCs.",
+        "c": "The delay spread is the difference in time between the direct and reflected paths. The difference is 50 meters, which is 0.167\u03BCs.",
+        "d": "The delay spread is the difference in time between the direct and reflected paths. The difference is 50 meters, which is 0.167\u03BCs."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
