@@ -1,9 +1,5 @@
-
-# THEORY
-
- Wireless channels operate through electromagnetic radiation from the transmitter to the receiver.
-<img src="./images/Exp3.png
-">
+Wireless channels operate through electromagnetic radiation from the transmitter to the receiver.
+<img src="./images/Exp3.png">
 
 
  In response to the transmission of sinusoid  $\cos(2\pi ft)$, the received signal in free space with fixed antenna (i.e. Scenario 1) can be expressed as
