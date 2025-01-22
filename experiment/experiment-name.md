@@ -1,1 +1,1 @@
-# Two Ray model based wireless channels
+# Two-ray model based Wireless channels
