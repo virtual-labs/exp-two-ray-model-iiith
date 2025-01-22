@@ -53,7 +53,7 @@
       "difficulty": "beginner"
     },
      {
-      "question": " If a transmitter sends a sinusoidal signal with a frequency of 1 MHz and the receiver is placed 300 meters away from the transmitter in free space, what will be the time delay for the signal to reach the receiver? (Speed of light = $3\times10^8$m/s)",
+      "question": " If a transmitter sends a sinusoidal signal with a frequency of 1 MHz and the receiver is placed 300 meters away from the transmitter in free space, what will be the time delay for the signal to reach the receiver? (Speed of light = $3 \times 10^8$m/s)",
       "answers": {
         "a": "0.01 us",
         "b": "0.001 us",
@@ -70,7 +70,7 @@
       "difficulty": "beginner"
     },
    {
-      "question": " If the initial distance is 100 meters and the velocity of the receiver is 10 m/s(moving away), calculate the distance between the transmitter and the receiver after 5 seconds.",
+      "question": " If the initial distance is 100 meters and the velocity of the receiver is 10 m/s (moving away), calculate the distance between the transmitter and the receiver after 5 seconds.",
       "answers": {
         "a": "150m",
         "b": "200m",
