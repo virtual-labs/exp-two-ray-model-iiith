@@ -3,9 +3,13 @@ Wireless channels operate through electromagnetic radiation from the transmitter
 
 
  In response to the transmission of sinusoid  $\cos(2\pi ft)$, the received signal in free space with fixed antenna (i.e. Scenario 1) can be expressed as
-```math
+
+$$
+\begin{aligned}
     E(f,t,(r,\theta,\psi)) = \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f(t-\frac{r}{c})}}{r},
-```
+\end{aligned}
+$$
+
  where $c$ is the speed of light, and $\alpha$ is the radiation pattern of the transmitting antenna at frequency $f$ in the direction $(\theta,\psi)$ as shown in the figure. It can be observed that as the distance increases, the electric field decreases resulting in the decline of received power with the increase in the distance between transmitting and receiving antennas.
 
 
@@ -15,9 +19,13 @@ Wireless channels operate through electromagnetic radiation from the transmitter
 
 
  Hence, the frequency of the received signal appears to be different from the frequency of transmitted signal. This frequency shift is proportional to the relative velocity between the transmitter and receiver and is referred to as the {\em Doppler spread}. The signal received  by the moving antenna in free space (i.e. Scenario 2) at time $t$ can be expressed as
-```math
+
+$$
+\begin{aligned}
      E(f,t,(r,\theta,\psi)) = \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f(t-\frac{r+vt}{c})}}{r+vt}= \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f((1-\frac{v}{c})t-\frac{r}{c})}}{r+vt} \nonumber
-```
+\end{aligned}
+$$
+
  where $r$ is the initial distance.
 
 
@@ -31,7 +39,11 @@ Wireless channels operate through electromagnetic radiation from the transmitter
 <img src="./images/exp3_2.png">
 
  As we can see, this set-up (i.e. Scenario 3) involves the superposition of two signals at the receiving antenna, one received directly from the transmitting antenna and the other one is the reflected back from the obstacle. This gives rise to the concept of {\em delay spread} which is the time difference between the arrival of the first and last significant paths of the transmitted signal at the receiver. It is important to understand that this superposition can result in constructive or destructive interference. The received signal in such scenario can  be expressed as
-```math
+
+$$
+\begin{aligned}
     E(f,t,(r,\theta,\psi)) = \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f(t-\frac{r}{c})}}{r} - \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f(t-\frac{2d-r}{c})}}{2d-r},
-```
+\end{aligned}
+$$
+
  and the delay spread can be quantified as $\frac{2d-r}{c}-\frac{r}{c}$. This is closely toied to the concept of {\em coherence bandwidth} which refers to the range of frequencies over which the wireless channel response remains correlated or predictable. In practice, a larger delay spread implies a shorter coherence bandwidth and vice versa. Systems with higher delay spread may require more sophisticated equalization techniques to mitigate the effects of interference caused by the spread of signal arrival times.
