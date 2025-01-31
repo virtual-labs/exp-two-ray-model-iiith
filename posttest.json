@@ -1,0 +1,56 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "What is the Doppler shift when the receiver is moving towards the source?",
+      "answers": {
+        "a": "positive",
+        "b": "negative",
+        "c": "zero",
+        "d": "constant"
+      },
+      "explanations": {
+        "a": "Yes, the Doppler shift is positive when the receiver is moving towards the source.",
+        "b": "The doppler shift is neagive only hen the reciever is moving away from the source.",
+        "c": "Doppler shift is zero when the receiver is not moving.",
+        "d": "Doppler shift is not constant."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": " How does a larger delay spread affect the coherence bandwidth?",
+      "answers": {
+        "a": "It increases the coherence bandwidth",
+        "b": "It decreases the coherence bandwidth",
+        "c": "It has no effect on the coherence bandwidth",
+        "d": "It makes the coherence bandwidth constant"
+      },
+      "explanations": {
+        "a": "delay spead and coherence bandwidth are inversely proportional. So, a larger delay spread increases the coherence bandwidth.",
+        "b": "Yes, a larger delay spread decreases the coherence bandwidth.",
+        "c": "Delay spread and coherence bandwidth are inversely proportional. So, a larger delay spread increases the coherence bandwidth.",
+        "d": "Delay spread and coherence bandwidth are inversely proportional. So, a larger delay spread increases the coherence bandwidth."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": " In a scenario where a direct path has a length of 150 meters and the reflected path has a length of 200 meters, calculate the delay spread.",
+      "answers": {
+        "a": "0.167\u03BCs",
+        "b": "1.67ms",
+        "c": "1.67\u03BCs",
+        "d": "0.167ms"
+      },
+      "explanations": {
+        "a": "Yes, this is correct. The delay spread is the difference in time between the direct and reflected paths. The difference is 50 meters, which is 0.167\u03BCs.",
+        "b": "The delay spread is the difference in time between the direct and reflected paths. The difference is 50 meters, which is 0.167\u03BCs.",
+        "c": "The delay spread is the difference in time between the direct and reflected paths. The difference is 50 meters, which is 0.167\u03BCs.",
+        "d": "The delay spread is the difference in time between the direct and reflected paths. The difference is 50 meters, which is 0.167\u03BCs."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    }
+  ]
+}
