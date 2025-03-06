@@ -377,13 +377,13 @@ section .title{
 }
 
 /* Create an active/current tablink class */
-/* .tab button.active {
+.tab button.active {
   background-color: #ccc;
   border-style: solid;
   border-radius: 10px;
   border-color: #98CB3B;
   color: #176696;
-} */
+}
 
 /* Style the tab content */
 .tabcontent {
@@ -453,6 +453,165 @@ th{
   padding: 20px;
 }
 
-#observations1 {
-  white-space: nowrap; /* Prevent line breaks */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  color: #333;
+  min-height: 100vh;
+}
+
+.header{
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: #4a90e2;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 20px;
+  justify-content: center;
+}
+
+
+.input-section, .output-section {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px; 
+  box-sizing: border-box;
+}
+
+.simulation-section {
+  flex: 3;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+canvas {
+  border: 1px solid #ccc;
+  display: block;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.controls, .results {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.results {
+  overflow-y: auto;
+  max-height: 300px; /* Increased height to avoid scrollbars */
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.transmitter-image, .receiver-image {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.receiver {
+  transition: transform 0.2s ease-in-out;
+}
+
+button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #357abd;
+}
+
+input[type="number"], input[type="range"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+input[type="range"] {
+  padding: 0;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+  color: #333;
+}
+
+/* Radio button styling */
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+input[type="radio"] + label {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-weight: normal;
+  color: #555;
+}
+
+/* Slider value display */
+#wallPositionDisplay, #wallPositionDisplay3 {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Output section styling */
+.output-section h2 {
+  margin-top: 0;
+}
+
+.results p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .input-section, .output-section, .simulation-section {
+      max-width: 100%;
+  }
 }

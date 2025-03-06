@@ -16,13 +16,13 @@
 
 	<div class="columns is-centered">
         <div class="column is-one-quarter v-instruction-title">
-            <!-- Tasks -->
+          
         </div>
-        <div class="column">
-            <div class="tab">
-                <button class="tablinks" onclick="openPart(event, 'tworay')", id="default"></button>
-            </div>
-        </div>
+				<div class="column">
+						<div class="tab">
+				
+						</div>
+				</div>
     </div>
 
 	<div id="tworay" class="tabcontent">
@@ -30,112 +30,97 @@
 			<div class="max-width">
 				<h2 class="title">Two Ray Model based Wireless Channel</h2>
 				<div class="columns is-centered">
-					<div class="v-collapsible-instruction-container v-instruction-container" style="margin-top: 2%;">
+					<div class="v-collapsible-instruction-container v-instruction-container instruction-container">
 						<div class="v-collapsible is-size-5">Instructions</div>
-						<div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+						<div class="v-content instruction-content">
 							<h3> <b> To understand the various perfomance characteristics of a two ray model based wireless channel, follow thesed steps: </b> </h3>
 							<br>
 							<h3>
 								<ol> 
 									<li> Enter the values of the distance between transmitter and receiver (r), the velocity at which the receiver is moving (v) and the frequency of the input signal(f).</li> 
 									<li> Click on calculate to observe the doppler spread and coherence time for case 01.</li> 
-									<li> Enter the values of the distance between transmitter and receiver (r), the distance between the transmitter and the obstacle (d) and the frequency of the input signal(f)./li>
+									<li> Enter the values of the distance between transmitter and receiver (r), the distance between the transmitter and the obstacle (d) and the frequency of the input signal(f).</li>
 									<li> Click on calculate to observe the delay spread and coherence bandwidth for case 02. </li>
 									<li>Repeat the above for case 03 and observe all the performance characteristics at the output.</li>
-									<br>
-									<b>NOTE:</b> The velocity at which the receiver is moving can be negative i.e., the receiver is moving away from the transmitter and vice-versa.
 								</ol>
+								<p><b>NOTE:</b> The velocity at which the receiver is moving can be negative i.e., the receiver is moving away from the transmitter and vice-versa.</p>
 							</h3>
 							<br>
 						</div>
 					</div>
 				</div>
-
-
 				<div class="columns-container">
 					<div class="left-column box">
-						<div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start"
-						style="margin-top:-1.5%">
-						<div class="column is-2-desktop is-4-tablet is-10-mobile">
-							<div class="box-question">
-								<div class="fill1">
-									r (m) <input type="number" id="r1" step="0.1"  min="0">
-								</div>
-								<div class="fill1">
-									v (m/s) <input type="number" id="v1" step="0.1">
-								</div>
-								<div class="fill1">
-									f (MHz) <input type="number" id="f1" step="0.1"  min="0">
-								</div>
-								<button class="buttonTotal" id="getOutput" role="button" onClick="getOutput()">Calculate</button>
-							</div>
+					
+							<h2>Inputs</h2>
+							<div class="controls">
+									<h3>Select Scenario:</h3>
+									<input type="radio" id="scenario1" name="scenario" value="1" checked onchange="setScenario(1)">
+									<label for="scenario1">Scenario 1: Free Space</label><br>
+									<input type="radio" id="scenario2" name="scenario" value="2" onchange="setScenario(2)">
+									<label for="scenario2">Scenario 2: Reflection</label><br>
+									<input type="radio" id="scenario3" name="scenario" value="3" onchange="setScenario(3)">
+									<label for="scenario2">Scenario 3: Combination</label><br><br>
 	
-							<div id="additionalFields1" style="display: none;">
-								<div class="fill1">
-									r (m) <input type="number" id="r2" step="0.1"  min="0">
-								</div>
-								<div class="fill1">
-									d (m) <input type="number" id="d2" step="0.1"  min="0">
-								</div>
-								<div class="fill1">
-									f (MHz) <input type="number" id="f2" step="0.1"  min="0">
-								</div>
-								<button class="buttonTotal" id="getOutput2" role="button" onClick="getOutput2()">Calculate</button>
-							</div>
+									<label for="distance">Distance (r) in meters:</label>
+									<input type="number" id="distance" value="100" step="1" min="1" required>
+									<br>
 	
-							<div id="additionalFields2" style="display: none;">
-								<div class="fill1">
-									r (m) <input type="number" id="r3" step="0.1" min="0" >
-								</div>
-								<div class="fill1">
-									d (m) <input type="number" id="d3" step="0.1" min="0" >
-								</div>
-								<div class="fill1">
-									v (m/s) <input type="number" id="v3" step="0.1">
-								</div>
-								<div class="fill1">
-									f (MHz) <input type="number" id="f3" step="0.1" min="0" >
-								</div>
-								<button class="buttonTotal" id="getOutput3" role="button" onClick="getOutput3()">Calculate</button>
+									<!-- Scenario 1 Inputs -->
+									<div id="scenario1-inputs">
+											<label for="velocity">Receiver Velocity (v) in m/s:</label>
+											<input type="number" id="velocity" value="0" step="1" min="0" required>
+									</div>
+	
+									<!-- Scenario 2 Inputs -->
+									<div id="scenario2-inputs" style="display: none;">
+											<label for="wallSlider">Adjust Wall Position (m):</label>
+											<input type="range" id="wallSlider" value="0" min="-350" max="350" step="1">
+											<div id="wallPositionDisplay" style="margin-top: 10px;">Current Wall Position: 0 m</div>
+									</div>                                                            
+	
+									<label for="frequency">Frequency (f) in MHz:</label>
+									<input type="number" id="frequency" value="100" step="1" min="1" required>
+									<br><br>
+	
+									<!-- Scenario 3 Inputs -->
+									<div id="scenario3-inputs" style="display: none;">
+											<label for="velocity">Receiver Velocity (v) in m/s:</label>
+											<input type="number" id="velocity" value="0" step="1" min="0" required><br>
+	
+											<label for="wallSlider">Adjust Wall Position (d) in meters:</label>
+											<input type="range" id="wallSlider3" value="0" min="-350" max="350" step="1">
+											<div id="wallPositionDisplay3" style="margin-top: 10px;">Current Wall Position: 0 m</div>
+									</div>
+	
+									<!-- Buttons -->
+									<button onclick="startCalculation()" style="margin-bottom: 10px;">Calculate</button>
+									<button onclick="resetSimulation()" style="margin-top: 10px;">Reset</button>
 							</div>
-						</div>
-					</div>
+
+	
+			
 					</div>
 					<div class="center-column box">
-						<div class="column is-7-desktop is-10-tablet is-10-mobile" >
-							<div id="matrixContainer" class="matrix-container" style="display: none;">
-								<div class="matrix-wrapper">
-									<table id="matrixTable" class="matrix"></table> 
-								</div>
-							</div>
-							<img id="imageDisplay1" src="./images/case01.png" alt="Image">
-							<img id="imageDisplay2" src="./images/case02.png" alt="Image" style="display: none;">
-							<img id="imageDisplay3" src="./images/case03.png" alt="Image" style="display: none;">
+				
+						  <div class="simulation-section">
+								<h2>Simulation</h2>
+								<canvas id="simulationCanvas" width="800" height="400"></canvas>
 						</div>
-					</div>
+	
+				</div>
 					<div class="right-column box">
-						<div class="column is-3-desktop is-10-tablet is-5-mobile">
+					
 							<div class="box-question">
-								<div class="v-datalist-title">Observations</div>
-								<div id="observations1">
-								</div>
+							
+									<h2>Outputs</h2>
+									<div class="results" id="results"></div>
+					
 							</div>
-						</div>
+
 					</div>
 				</div>
-				
-
-
-
 			
-			
-			
-			
-
-
-			
-
-
 			</div>
 
 		</section>
