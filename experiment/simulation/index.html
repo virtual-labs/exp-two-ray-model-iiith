@@ -14,16 +14,7 @@
 
 <body>
 
-	<div class="columns is-centered">
-        <div class="column is-one-quarter v-instruction-title">
-          
-        </div>
-				<div class="column">
-						<div class="tab">
-				
-						</div>
-				</div>
-    </div>
+
 
 	<div id="tworay" class="tabcontent">
 		<section class="fre" id="twoRay">
@@ -52,50 +43,49 @@
 				<div class="columns-container">
 					<div class="left-column box">
 					
+				
 							<h2>Inputs</h2>
 							<div class="controls">
 									<h3>Select Scenario:</h3>
-									<input type="radio" id="scenario1" name="scenario" value="1" checked onchange="setScenario(1)">
-									<label for="scenario1">Scenario 1: Free Space</label><br>
-									<input type="radio" id="scenario2" name="scenario" value="2" onchange="setScenario(2)">
-									<label for="scenario2">Scenario 2: Reflection</label><br>
-									<input type="radio" id="scenario3" name="scenario" value="3" onchange="setScenario(3)">
-									<label for="scenario2">Scenario 3: Combination</label><br><br>
-	
-									<label for="distance">Distance (r) in meters:</label>
-									<input type="number" id="distance" value="100" step="1" min="1" required>
+									<div>
+											<input type="radio" id="scenario1" name="scenario" value="1" checked onchange="setScenario(1)">
+											<label for="scenario1">Scenario 1: Doppler (Free Space)</label>
+									</div>
+									<div>
+											<input type="radio" id="scenario2" name="scenario" value="2" onchange="setScenario(2)">
+											<label for="scenario2">Scenario 2: Multipath (Static)</label>
+									</div>
+									<div>
+											<input type="radio" id="scenario3" name="scenario" value="3" onchange="setScenario(3)">
+											<label for="scenario3">Scenario 3: Doppler + Multipath</label>
+									</div>
 									<br>
 	
-									<!-- Scenario 1 Inputs -->
-									<div id="scenario1-inputs">
+									<label for="frequency">Frequency (f) in MHz:</label>
+									<input type="number" id="frequency" value="900" step="1" min="1" required>
+									<br>
+	
+									<div id="velocity-inputs">
 											<label for="velocity">Receiver Velocity (v) in m/s:</label>
-											<input type="number" id="velocity" value="0" step="1" min="0" required>
+											<input type="number" id="velocity" value="20" step="1" min="0" required>
 									</div>
 	
-									<!-- Scenario 2 Inputs -->
 									<div id="scenario2-inputs" style="display: none;">
-											<label for="wallSlider">Adjust Wall Position (m):</label>
-											<input type="range" id="wallSlider" value="0" min="-350" max="350" step="1">
-											<div id="wallPositionDisplay" style="margin-top: 10px;">Current Wall Position: 0 m</div>
+											<label for="wallSlider">Adjust Wall Position:</label>
+											<input type="range" id="wallSlider" value="650" min="550" max="750" step="1">
+											<div id="wallPositionDisplay">Wall X Position: 650 m</div>
 									</div>                                                            
 	
-									<label for="frequency">Frequency (f) in MHz:</label>
-									<input type="number" id="frequency" value="100" step="1" min="1" required>
-									<br><br>
-	
-									<!-- Scenario 3 Inputs -->
 									<div id="scenario3-inputs" style="display: none;">
-											<label for="velocity">Receiver Velocity (v) in m/s:</label>
-											<input type="number" id="velocity" value="0" step="1" min="0" required><br>
-	
-											<label for="wallSlider">Adjust Wall Position (d) in meters:</label>
-											<input type="range" id="wallSlider3" value="0" min="-350" max="350" step="1">
-											<div id="wallPositionDisplay3" style="margin-top: 10px;">Current Wall Position: 0 m</div>
+											<label for="wallSlider3">Adjust Wall Position:</label>
+											<input type="range" id="wallSlider3" value="700" min="450" max="750" step="1">
+											<div id="wallPositionDisplay3">Wall Position: 700 m</div>
 									</div>
-	
-									<!-- Buttons -->
-									<button onclick="startCalculation()" style="margin-bottom: 10px;">Calculate</button>
-									<button onclick="resetSimulation()" style="margin-top: 10px;">Reset</button>
+							</div>
+							 <div id="message"></div>
+							<div class="button-container">
+								<button onclick="startCalculation()" class="action-btn calculate-btn">Start / Update</button>
+								<button onclick="resetSimulation()" class="action-btn reset-btn">Reset</button>
 							</div>
 
 	
@@ -103,18 +93,21 @@
 					</div>
 					<div class="center-column box">
 				
-						  <div class="simulation-section">
-								<h2>Simulation</h2>
-								<canvas id="simulationCanvas" width="800" height="400"></canvas>
-						</div>
+						<div class="simulation-section">
+							<h2>Simulation</h2>
+							<canvas id="simulationCanvas" width="800" height="400"></canvas>
+					</div>
 	
 				</div>
 					<div class="right-column box">
 					
 							<div class="box-question">
 							
+								<div class="results-container">
 									<h2>Outputs</h2>
 									<div class="results" id="results"></div>
+							</div>
+							<div id="signal-graph-container"></div>
 					
 							</div>
 

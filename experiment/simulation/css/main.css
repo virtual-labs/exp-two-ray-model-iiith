@@ -107,6 +107,25 @@ input[type="radio"] {
   background-color: #e6e6e6;
 }
 
+  /* Improved container layout for large screens */
+  .container {
+    flex-wrap: nowrap;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .simulation-section {
+    flex: 2;
+  }
+
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .columns-container {
+    flex-wrap: nowrap;
+  }
 
 }
 
@@ -160,6 +179,34 @@ section .title{
 .figureLast{
     margin-left: -30%;
 }
+
+  .container {
+    flex-wrap: wrap;
+  }
+  
+  .input-section, .output-section {
+    flex: 1 0 45%;
+  }
+  
+  .simulation-section {
+    flex: 1 0 100%;
+    order: -1;
+    margin-bottom: 20px;
+  }
+
+  canvas {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+  }
+
+  .columns-container {
+    flex-direction: row;
+  }
+  
+  .center-column {
+    flex: 1.5;
+  }
   
 }
 
@@ -213,6 +260,43 @@ font-family: 'Ubuntu', sans-serif;
   margin-left: 0%;
 }
 
+  .container {
+    flex-direction: column;
+  }
+  
+  .input-section, .output-section, .simulation-section {
+    flex: 1 0 100%;
+    max-width: 100%;
+  }
+
+  .simulation-section {
+    order: -1;
+    margin-bottom: 20px;
+  }
+
+  canvas {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+  }
+
+  .columns-container {
+    flex-direction: column;
+  }
+  
+  .left-column, .center-column, .right-column {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  .button-container {
+    flex-direction: column;
+  }
+  
+  .action-btn {
+    width: 100%;
+  }
+  
 }
 
 /* ----------------------------------------------- Large Phones ---------------------------------- */
@@ -266,6 +350,60 @@ section .title{
     margin-left: 0%;
 }
 
+  .container {
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .header {
+    padding: 15px;
+  }
+  
+  .input-section, .output-section, .simulation-section {
+    flex: 1 0 100%;
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .simulation-section {
+    order: -1;
+  }
+
+  canvas {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+  }
+
+  .columns-container {
+    flex-direction: column;
+  }
+  
+  .left-column, .center-column, .right-column {
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
+  }
+
+  button {
+    padding: 12px 15px;
+    font-size: 16px;
+  }
+  
+  label {
+    font-size: 16px;
+  }
+  
+  input[type="number"], input[type="range"] {
+    padding: 12px;
+    font-size: 16px;
+  }
+  
+  .button-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
 }
 
 /* ------------------------------------- Small Phones ------------------------------------ */
@@ -320,7 +458,152 @@ section .title{
 .figureLast{
     margin-left: 0%;
 }
+
+  .max-width {
+    padding: 0 15px;
+  }
+
+  .container {
+    flex-direction: column;
+    padding: 5px;
+  }
   
+  .header {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .header h1 {
+    font-size: 24px;
+  }
+  
+  .input-section, .output-section, .simulation-section {
+    flex: 1 0 100%;
+    max-width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+
+  .simulation-section {
+    order: -1;
+  }
+
+  section .title {
+    font-size: 28px;
+  }
+
+  canvas {
+    width: 100%;
+    height: auto;
+  }
+
+  .columns-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .left-column, .center-column, .right-column {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+  }
+  
+  .controls, .results {
+    padding: 10px;
+  }
+  
+  button {
+    padding: 12px;
+    font-size: 16px;
+    margin-top: 8px;
+  }
+  
+  .button-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .action-btn {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  input[type="number"], input[type="range"] {
+    padding: 10px;
+    margin: 8px 0;
+  }
+  
+  label {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+  
+}
+
+/* Add a new media query for very small devices */
+@media (max-width: 320px) {
+  .header h1 {
+    font-size: 20px;
+  }
+  
+  section .title {
+    font-size: 24px;
+  }
+  
+  .input-section, .output-section, .simulation-section {
+    padding: 8px;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .results {
+    max-height: 250px;
+  }
+  
+  .controls, .results {
+    padding: 8px;
+  }
+}
+
+/* Global responsive improvements */
+@media (hover: none) and (pointer: coarse) {
+  /* Better touch targets for mobile devices */
+  button, input[type="radio"] + label {
+    min-height: 44px;
+  }
+  
+  input[type="range"] {
+    height: 30px;
+  }
+}
+
+/* Improve flexibility of canvas for all screen sizes */
+canvas {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* Make images responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive table improvements */
+@media (max-width: 600px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  td, th {
+    padding: 8px;
+  }
 }
 
 /* ----------------------------------------- Plot Button -----------------------------------------------------*/
@@ -425,6 +708,8 @@ th{
   display: flex;
   justify-content: space-between;
   margin-top: 20px; /* Adjust as needed */
+  flex-wrap: wrap;
+  gap: 15px; /* Use gap for consistent spacing */
 }
 
 .left-column {
@@ -604,14 +889,39 @@ input[type="radio"] + label {
   color: #333;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .container {
-      flex-direction: column;
-      align-items: center;
-  }
 
-  .input-section, .output-section, .simulation-section {
-      max-width: 100%;
-  }
+
+.button-container {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.action-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 130px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.calculate-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.calculate-btn:hover {
+  background-color: #3e8e41;
+}
+
+.reset-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.reset-btn:hover {
+  background-color: #d32f2f;
 }
