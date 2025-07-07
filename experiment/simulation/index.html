@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<div class="v-content instruction-content"></div>
 <html lang="en">
 
 <head>
@@ -26,21 +26,28 @@
 				<div class="columns is-centered">
 					<div class="v-collapsible-instruction-container v-instruction-container instruction-container">
 						<div class="v-collapsible is-size-5">Instructions</div>
-						<div class="v-content instruction-content">
-							<h3> <b> To understand the various perfomance characteristics of a two ray model based wireless channel, follow thesesteps: </b> </h3>
-							<br>
-							<h3>
-								<ol> 
-									<li> Enter the values of the distance between transmitter and receiver (r), the velocity at which the receiver is moving (v) and the frequency of the input signal(f).</li> 
-									<li> Click on calculate to observe the doppler spread and coherence time for case 01.</li> 
-									<li> Enter the values of the distance between transmitter and receiver (r), the distance between the transmitter and the obstacle (d) and the frequency of the input signal(f).</li>
-									<li> Click on calculate to observe the delay spread and coherence bandwidth for case 02. </li>
-									<li>Repeat the above for case 03 and observe all the performance characteristics at the output.</li>
-								</ol>
-								<p><b>NOTE:</b> The velocity at which the receiver is moving can be negative i.e., the receiver is moving away from the transmitter and vice-versa.</p>
-							</h3>
-							<br>
+						<div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+
+					
+							<ol>
+
+								<li><strong>Scenario Selection:</strong> Choose one of three scenarios:
+									<ul>
+										<li>Scenario 1: Doppler Effect (Free Space) - Observe frequency shifts due to receiver motion</li>
+										<li>Scenario 2: Multipath (Static) - Examine signal interference patterns with a stationary receiver</li>
+										<li>Scenario 3: Combined Effects - Study both Doppler and multipath effects simultaneously</li>
+									</ul>
+								</li>
+								<li><strong>Parameter Configuration:</strong> Set the carrier frequency (MHz) and receiver velocity (m/s) to understand their impact on signal propagation.</li>
+								<li><strong>Environmental Setup:</strong> For multipath scenarios, adjust the wall position to control the reflection point and observe how path differences affect signal strength.</li>
+								<li><strong>Execution:</strong> Click "Start / Update" to run the simulation with your selected parameters.</li>
+								<li><strong>Analysis:</strong> Observe the animated signal propagation and examine the calculated path loss, phase shift, and other channel characteristics in the results section.</li>
+								<li><strong>Experimentation:</strong> Modify parameters systematically to understand how each variable affects wireless communication performance.</li>
+								<li><strong>Reset:</strong> Use the "Reset" button to return to default settings and conduct new trials.</li>
+							</ol>
 						</div>
+						
+						
 					</div>
 				</div>
 				<div class="columns-container">
