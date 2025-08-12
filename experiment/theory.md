@@ -1,12 +1,14 @@
 Wireless channels operate through electromagnetic radiation from the transmitter to the receiver.
-<img src="./images/Exp3.png">
 
+<p align="center">
+<img src="./images/Exp3.png" width="430">
+</p>
 
- In response to the transmission of sinusoid  $\cos(2\pi ft)$, the received signal in free space with fixed antenna (i.e. Scenario 1) can be expressed as
+In response to the transmission of sinusoid  $\cos(2\pi ft)$, the received signal in free space with fixed antenna (i.e. Scenario 1) can be expressed as
 
 $$
 \begin{aligned}
-E(f,t,(r,\theta,\psi)) = \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f(t-\frac{r}{c})}}{r},
+    E(f,t,(r,\theta,\psi)) = \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f(t-\frac{r}{c})}}{r},
 \end{aligned}
 $$
 
@@ -15,13 +17,15 @@ where $c$ is the speed of light, and $\alpha$ is the radiation pattern of the tr
 
 However, it is not practical to consider that the receiver is always in a fixed position. Thus, let us consider that the receiver is moving away from transmitter with a velocity $v$. As the receiver moves away, the distance between the subsequent wavefronts of the transmitted EM signal observed by receiving antennas  increases. This can be inferred as a decrease in the frequency as shown below.
 
-<img src="./images/exp3_1.png">
+<p align="center">
+<img src="./images/exp3_1.png" width="300" height="350">
+</p>
 
 Hence, the frequency of the received signal appears to be different from the frequency of transmitted signal. This frequency shift is proportional to the relative velocity between the transmitter and receiver and is referred to as the {\em Doppler spread}. The signal received  by the moving antenna in free space (i.e. Scenario 2) at time $t$ can be expressed as
 
 $$
 \begin{aligned}
-E(f,t,(r,\theta,\psi)) = \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f(t-\frac{r+vt}{c})}}{r+vt}= \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f((1-\frac{v}{c})t-\frac{r}{c})}}{r+vt} \nonumber
+    E(f,t,(r,\theta,\psi)) = \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f(t-\frac{r+vt}{c})}}{r+vt}= \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f((1-\frac{v}{c})t-\frac{r}{c})}}{r+vt} \nonumber
 \end{aligned}
 $$
 
@@ -34,13 +38,15 @@ Another closely related concept to understand from Doppler shift is the {\em coh
 
 All the above understanding is still not close to reality as we have not considered any obstacles. Let us now try to understand the effect of obstacles by considering a reflecting wall  as shown below.
 
-<img src="./images/exp3_2.png">
+<p align="center">
+<img src="./images/exp3_2.png" width="430">
+</p>
 
- As we can see, this set-up (i.e. Scenario 3) involves the superposition of two signals at the receiving antenna, one received directly from the transmitting antenna and the other one is the reflected back from the obstacle. This gives rise to the concept of {\em delay spread} which is the time difference between the arrival of the first and last significant paths of the transmitted signal at the receiver. It is important to understand that this superposition can result in constructive or destructive interference. The received signal in such scenario can  be expressed as
+As we can see, this set-up (i.e. Scenario 3) involves the superposition of two signals at the receiving antenna, one received directly from the transmitting antenna and the other one is the reflected back from the obstacle. This gives rise to the concept of {\em delay spread} which is the time difference between the arrival of the first and last significant paths of the transmitted signal at the receiver. It is important to understand that this superposition can result in constructive or destructive interference. The received signal in such scenario can  be expressed as
 
 $$
 \begin{aligned}
-E(f,t,(r,\theta,\psi)) = \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f(t-\frac{r}{c})}}{r} - \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f(t-\frac{2d-r}{c})}}{2d-r},
+    E(f,t,(r,\theta,\psi)) = \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f(t-\frac{r}{c})}}{r} - \frac{\alpha\left(\theta,\psi,f\right)\cos{2\pi f(t-\frac{2d-r}{c})}}{2d-r},
 \end{aligned}
 $$
 
