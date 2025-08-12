@@ -8,12 +8,12 @@
         "b": "Electromagnetic radiation",
         "c": "Water waves",
         "d": "Mechanical vibrations"
-      }, 
+      },
       "explanations": {
-        "a": "The primary medium through which wireless communication operates is electromagnetic radiation.",
-        "b": "Yes, this is correct. The primary medium through which wireless communication operates is electromagnetic radiation.",
-        "c": "The primary medium through which wireless communication operates is electromagnetic radiation.",
-        "d": "The primary medium through which wireless communication operates is electromagnetic radiation."
+        "a": "Incorrect – sound waves require a medium like air, not used for wireless communication over long distances.",
+        "b": "Correct – wireless communication uses electromagnetic radiation.",
+        "c": "Incorrect – water waves are unrelated to radio communication.",
+        "d": "Incorrect – mechanical vibrations need a physical medium."
       },
       "correctAnswer": "b",
       "difficulty": "beginner"
@@ -27,64 +27,115 @@
         "d": "It fluctuates"
       },
       "explanations": {
-        "a": "The electric field strength decreases as the distance between the transmitting and receiving antennas increases.",
-        "b": "The electric field strength decreases as the distance between the transmitting and receiving antennas increases.",
-        "c": "Yes this is correct. The electric field strength decreases as the distance between the transmitting and receiving antennas increases.",
-        "d": "The electric field strength decreases as the distance between the transmitting and receiving antennas increases."
+        "a": "Incorrect – strength decreases with distance.",
+        "b": "Incorrect – field strength changes with distance.",
+        "c": "Correct – as distance increases, field strength decreases.",
+        "d": "Incorrect – fluctuations are not the main trend."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
     },
-     {
-      "question": "What phenomenon occurs when the receiver moves away from the transmitter?",
+    {
+      "question": "What happens when the receiver moves away from the transmitter?",
       "answers": {
         "a": "Frequency increases",
-        "b": "No change in frequency",
-        "c": "Frequency decreases",
+        "b": "Frequency decreases",
+        "c": "No change in frequency",
         "d": "Signal strength increases"
       },
       "explanations": {
-        "a": "The frequency increases when the receiver moves towards the transmitter.",
-        "b": "There is no change in frequence when the receiver is not moving.",
-        "c": "Yes, this is correct. The frequency decreases when the receiver moves away from the transmitter.",
-        "d": "The signal strength does not increase when the receiver moves away from the transmitter."
+        "a": "Incorrect – frequency increases when moving towards the source.",
+        "b": "Correct – moving away causes a Doppler shift to lower frequency.",
+        "c": "Incorrect – motion causes a frequency shift.",
+        "d": "Incorrect – moving away reduces signal strength."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What type of interference occurs at the receiver when there are two different paths taken by the transmitted signal?",
+      "answers": {
+        "a": "Constructive",
+        "b": "Destructive",
+        "c": "Both are possible",
+        "d": "Can't say"
+      },
+      "explanations": {
+        "a": "Incorrect – constructive occurs only when phases align.",
+        "b": "Incorrect – destructive occurs only when phases oppose.",
+        "c": "Correct – both constructive and destructive interference are possible.",
+        "d": "Incorrect – this can be determined by path differences."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
     },
-     {
-      "question": " If a transmitter sends a sinusoidal signal with a frequency of 1 MHz and the receiver is placed 300 meters away from the transmitter in free space, what will be the time delay for the signal to reach the receiver? (Speed of light = $3 \times 10^8$m/s)",
+    {
+      "question": "If a transmitter sends a sinusoidal signal with a frequency of 1 MHz and the receiver is placed 300 meters away from the transmitter in free space, what will be the time delay for the signal to reach the receiver? (Speed of light = 3×10^8 m/s)",
       "answers": {
-        "a": "0.01 us",
-        "b": "0.001 us",
-        "c": "1 us",
-        "d": "0.1 us"
+        "a": "0.01 × 10^-6 sec",
+        "b": "1.00 × 10^-6 sec",
+        "c": "0.02 × 10^-6 sec",
+        "d": "0.1 × 10^-6 sec"
       },
       "explanations": {
-        "a": "The time delay is the time taken for the signal to travel from the transmitter to the receiver. The time delay is 1 us.",
-        "b": "The time delay is the time taken for the signal to travel from the transmitter to the receiver. The time delay is 1 us.",
-        "c": "Yes, this is correct. The time delay is 1 us.",
-        "d": "The time delay is the time taken for the signal to travel from the transmitter to the receiver. The time delay is 1 us."
+        "a": "Incorrect – this would be too small for 300 m.",
+        "b": "Correct – delay = 300 / (3×10^8) = 1 × 10^-6 s.",
+        "c": "Incorrect – wrong calculation.",
+        "d": "Incorrect – much shorter than actual delay."
       },
-      "correctAnswer": "c",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },
-   {
-      "question": " If the initial distance is 100 meters and the velocity of the receiver is 10 m/s (moving away), calculate the distance between the transmitter and the receiver after 5 seconds.",
+    {
+      "question": "If the initial distance is 100 meters and the velocity of the receiver is 10 m/s (moving away from the transmitter), calculate the distance between the transmitter and the receiver after 5 seconds.",
       "answers": {
-        "a": "150m",
-        "b": "200m",
-        "c": "120m",
-        "d": "50m"
+        "a": "150 m",
+        "b": "200 m",
+        "c": "120 m",
+        "d": "50 m"
       },
       "explanations": {
-        "a": "Yes, this is correct. The distance between the transmitter and the receiver increases by 50 meters every  5 seconds. After 5 seconds, the distance will be 150 meters.",
-        "b": "The distance between the transmitter and the receiver increases by 50 meters every  5 seconds. After 5 seconds, the distance will be 150 meters.",
-        "c": "The distance between the transmitter and the receiver increases by 50 meters every  5 seconds. After 5 seconds, the distance will be 150 meters.",
-        "d": "The distance between the transmitter and the receiver increases by 50 meters every  5 seconds. After 5 seconds, the distance will be 150 meters."
+        "a": "Correct – distance = 100 + (10 × 5) = 150 m.",
+        "b": "Incorrect – this would require a speed of 20 m/s.",
+        "c": "Incorrect – 120 m corresponds to 4 m/s.",
+        "d": "Incorrect – moving away cannot reduce distance."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
-    } 
+    },
+    {
+      "question": "What is the Doppler shift when the receiver is moving towards the source?",
+      "answers": {
+        "a": "positive",
+        "b": "negative",
+        "c": "zero",
+        "d": "constant"
+      },
+      "explanations": {
+        "a": "Correct – moving towards increases observed frequency, a positive shift.",
+        "b": "Incorrect – negative shift occurs when moving away.",
+        "c": "Incorrect – motion causes a shift.",
+        "d": "Incorrect – it changes with velocity and direction."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In the two-ray model of the wireless channel, with what exponent does the signal power decrease with distance?",
+      "answers": {
+        "a": "1",
+        "b": "2",
+        "c": "3",
+        "d": "4"
+      },
+      "explanations": {
+        "a": "Incorrect – inverse distance applies in some near-field cases, not two-ray model.",
+        "b": "Incorrect – free space pathloss is 1/d², not two-ray model.",
+        "c": "Incorrect – not typical for two-ray model.",
+        "d": "Correct – in two-ray model, power falls off as 1/d⁴ for large distances."
+      },
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    }
   ]
 }
