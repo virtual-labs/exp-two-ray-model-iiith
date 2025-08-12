@@ -2,38 +2,140 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "α(θ, φ, f) is a property of...",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "The transmitter",
+        "b": "The channel",
+        "c": "The receiver",
+        "d": "None of the above"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect – this parameter is not solely determined by the transmitter.",
+        "b": "Correct – α(θ, φ, f) represents channel characteristics as a function of direction and frequency.",
+        "c": "Incorrect – the receiver does not define this property.",
+        "d": "Incorrect – it is a defined property of the channel."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is coherence time?",
+      "answers": {
+        "a": "The time it takes the signal to travel from the transmitter to receiver",
+        "b": "The time duration over which the channel impulse response remains strongly correlated",
+        "c": "The first time instant where the received signal has zero phase shift w.r.t. the original signal",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Incorrect – that is propagation delay, not coherence time.",
+        "b": "Correct – coherence time is the duration the channel remains approximately constant.",
+        "c": "Incorrect – phase shift zero-crossing is unrelated to coherence time definition.",
+        "d": "Incorrect – there is a defined correct answer."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Coherence bandwidth is a property of...",
+      "answers": {
+        "a": "The transmitted signal",
+        "b": "The channel",
+        "c": "The receiver architecture",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Incorrect – it depends on the channel, not the transmitted waveform itself.",
+        "b": "Correct – coherence bandwidth is determined by the channel’s multipath spread.",
+        "c": "Incorrect – receiver design does not change the channel’s intrinsic property.",
+        "d": "Incorrect – coherence bandwidth is well-defined."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Higher delay implies which of the following?",
+      "answers": {
+        "a": "Shorter coherence bandwidth",
+        "b": "Higher coherence bandwidth",
+        "c": "Higher coherence time",
+        "d": "Shorter coherence time"
+      },
+      "explanations": {
+        "a": "Correct – longer delay spreads result in smaller coherence bandwidth.",
+        "b": "Incorrect – the relationship is inverse.",
+        "c": "Incorrect – delay spread does not directly increase coherence time.",
+        "d": "Incorrect – coherence time relates to Doppler spread, not delay spread."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "How does a larger delay spread affect the coherence bandwidth?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "It increases the coherence bandwidth",
+        "b": "It decreases the coherence bandwidth",
+        "c": "It does not affect the coherence bandwidth",
+        "d": "It makes the coherence bandwidth constant"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect – delay spread and coherence bandwidth are inversely related.",
+        "b": "Correct – larger delay spread reduces the coherence bandwidth.",
+        "c": "Incorrect – there is a clear dependence.",
+        "d": "Incorrect – coherence bandwidth varies with delay spread."
       },
-      "correctAnswer": "c",
+      "correctAnswer": "b",
       "difficulty": "beginner"
+    },
+    {
+      "question": "Which of the following is TRUE? The correlation of the channel impulse response over time is...",
+      "answers": {
+        "a": "..an exponentially decreasing function",
+        "b": "..a sinusoid with monotonically decreasing envelope",
+        "c": "..any arbitrary function depending on the velocity of the receiver",
+        "d": "..a sinusoid with constant amplitude"
+      },
+      "explanations": {
+        "a": "Incorrect – while exponential decay appears in some models, it’s not the general Doppler spectrum result.",
+        "b": "Correct – Jakes' model shows sinusoidal variation with a decaying envelope due to Doppler spread.",
+        "c": "Incorrect – there is a defined statistical form for typical fading channels.",
+        "d": "Incorrect – fading causes amplitude decay, not constant amplitude."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In a scenario where a direct path has a length of 150 meters and the reflected path has a length of 200 meters, calculate the delay spread.",
+      "answers": {
+        "a": "0.167 μs",
+        "b": "1.67 ms",
+        "c": "1.67 μs",
+        "d": "0.167 ms"
+      },
+      "explanations": {
+        "a": "Correct – extra path = 200 - 150 = 50 m; delay = 50 / (3×10^8) ≈ 0.167 μs.",
+        "b": "Incorrect – ms scale is far too large for this distance.",
+        "c": "Incorrect – 1.67 μs would require 500 m difference.",
+        "d": "Incorrect – wrong unit conversion."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Calculate the coherence bandwidth for the scenario including three paths arriving at receiver with delays of 1 μs, 3 μs and 7 μs",
+      "answers": {
+        "a": "1/2 MHz",
+        "b": "-1/2 MHz",
+        "c": "1/6 MHz",
+        "d": "1/4 MHz"
+      },
+      "explanations": {
+        "a": "Correct – RMS delay spread ≈ 1 μs → coherence bandwidth ≈ 1 / (2 × 1 μs) = 0.5 MHz.",
+        "b": "Incorrect – bandwidth cannot be negative.",
+        "c": "Incorrect – this would correspond to a much larger delay spread.",
+        "d": "Incorrect – this would require a 2 μs RMS delay spread."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
     }
   ]
 }
