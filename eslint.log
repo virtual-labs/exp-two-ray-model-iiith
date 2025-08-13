@@ -1,0 +1,7 @@
+
+/home/runner/work/exp-two-ray-model-iiith/exp-two-ray-model-iiith/experiment/simulation/js/main.js
+   43:17  warning  'setScenario' is not defined  no-undef
+  145:17  warning  'setScenario' is not defined  no-undef
+
+✖ 2 problems (0 errors, 2 warnings)
+
