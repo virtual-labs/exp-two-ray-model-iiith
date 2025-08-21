@@ -1,0 +1,8 @@
+
+/home/runner/work/exp-two-ray-model-iiith/exp-two-ray-model-iiith/experiment/simulation/js/main.js
+   41:5   warning  'setScenario' is not defined                          no-undef
+  155:5   warning  'setScenario' is not defined                          no-undef
+  372:11  warning  'phaseDifference' is assigned a value but never used  no-unused-vars
+
+✖ 3 problems (0 errors, 3 warnings)
+
