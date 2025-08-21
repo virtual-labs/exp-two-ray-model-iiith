@@ -1,1 +1,1 @@
-# Two-ray model based Wireless channels
+# Illustrative scenarios of wireless channels
