@@ -4,7 +4,7 @@ Wireless channels operate through electromagnetic radiation from the transmitter
 <img src="./images/Exp3.png" width="430">
 </p>
 
-In response to the transmission of sinusoid  $\cos(2\pi ft)$, the received signal in free space with fixed antenna (i.e. Scenario 1) can be expressed as
+In response to the transmission of sinusoid  $\cos(2\pi ft)$, the received signal in free space with fixed antenna can be expressed as
 
 $$
 \begin{aligned}
@@ -21,7 +21,26 @@ However, it is not practical to consider that the receiver is always in a fixed 
 <img src="./images/exp3_1.png" width="300" height="350">
 </p>
 
-Hence, the frequency of the received signal appears to be different from the frequency of transmitted signal. This frequency shift is proportional to the relative velocity between the transmitter and receiver and is referred to as the {\em Doppler spread}. The signal received  by the moving antenna in free space (i.e. Scenario 2) at time $t$ can be expressed as
+Hence, the frequency of the received signal appears to be different from the frequency of transmitted signal. This frequency shift is proportional to the relative velocity between the transmitter and receiver and is referred to as the "Doppler spread". To understand this change in frequency, we can evaluate the rate of change of phase delay $\triangle\Phi$.
+
+The additional distance $\triangle d$ travelled by the wave due to the reciever motion can be obtained as $\triangle d = \triangle t.v.\cos\theta$ where $\theta$ is the angle of arrival of the wave.  Using this, we can obtain the phase delay as
+
+$$
+\begin{aligned}
+    \triangle\Phi = \frac{2\pi\triangle d}{\lambda} =  \frac{2\pi\triangle v }{\lambda}\cos\theta
+\end{aligned}
+$$
+
+Thus, this phase delay gives rise to a frequency shift as
+
+$$
+\begin{aligned}
+    f_D = \frac{1}{2\pi} \frac{\triangle\Phi}{\triangle t} = \frac{v}{\lambda} \cos\theta
+\end{aligned}
+$$
+
+
+The signal received  by the moving antenna in free space (i.e. Scenario 1) at time $t$ can be expressed as
 
 $$
 \begin{aligned}
@@ -34,15 +53,15 @@ where $r$ is the initial distance.
 From above expression, the shift in received frequency, i.e. Doppler shift, can be observed to be $-\frac{fv}{c}=\frac{v}{\lambda}$. The $-ve$ sign signifies the drop in frequency as the receiver is moving away from the source. Similar results can be observed when the receiver is moving towards the source, however, the doppler shift would be $+ve$.
 
 
-Another closely related concept to understand from Doppler shift is the {\em coherence time} which is the time duration over which the channel impulse response, or frequency response, remains strongly correlated or predictable. In practical terms, it represents the time scale over which the wireless channel can be considered approximately constant. The coherence time of the channel and the Doppler shift are inversely related. This is because the coherence time dictates how long the channel remains approximately constant, while the Doppler shift affects how rapidly the channel conditions change due to motion. Systems with shorter coherence times require more frequent channel estimation and adaptation to track the rapidly changing channel conditions caused by motion. Conversely, systems with longer coherence times can maintain relatively stable channel estimates for longer duration, requiring less frequent channel estimation and adaption of transmission signal. 
+Another closely related concept to understand from doppler shift is the "Coherence time" which is the time duration over which the channel impulse response, or frequency response, remains strongly correlated or predictable. In practical terms, it represents the time scale over which the wireless channel can be considered approximately constant. The coherence time of the channel and the Doppler shift are inversely related. This is because the coherence time dictates how long the channel remains approximately constant, while the Doppler shift affects how rapidly the channel conditions change due to motion. Systems with shorter coherence times require more frequent channel estimation and adaptation to track the rapidly changing channel conditions caused by motion. Conversely, systems with longer coherence times can maintain relatively stable channel estimates for longer duration, requiring less frequent channel estimation and adaption of transmission signal. 
 
-All the above understanding is still not close to reality as we have not considered any obstacles. Let us now try to understand the effect of obstacles by considering a reflecting wall  as shown below.
+Let us now try to understand the effect of obstacles by considering a reflecting wall  as shown below.
 
 <p align="center">
 <img src="./images/exp3_2.png" width="430">
 </p>
 
-As we can see, this set-up (i.e. Scenario 3) involves the superposition of two signals at the receiving antenna, one received directly from the transmitting antenna and the other one is the reflected back from the obstacle. This gives rise to the concept of {\em delay spread} which is the time difference between the arrival of the first and last significant paths of the transmitted signal at the receiver. It is important to understand that this superposition can result in constructive or destructive interference. The received signal in such scenario can  be expressed as
+As we can see, this set-up (i.e. Scenario 2) involves the superposition of two signals at the receiving antenna, one received directly from the transmitting antenna and the other one is the reflected back from the obstacle. This gives rise to the concept of "Delay spread" which is the time difference between the arrival of the first and last significant paths of the transmitted signal at the receiver. The received signal in such scenario can  be expressed as
 
 $$
 \begin{aligned}
@@ -50,4 +69,38 @@ $$
 \end{aligned}
 $$
 
-and the delay spread can be quantified as $\frac{2d-r}{c}-\frac{r}{c}$. This is closely toied to the concept of {\em coherence bandwidth} which refers to the range of frequencies over which the wireless channel response remains correlated or predictable. In practice, a larger delay spread implies a shorter coherence bandwidth and vice versa. Systems with higher delay spread may require more sophisticated equalization techniques to mitigate the effects of interference caused by the spread of signal arrival times.
+The phase shift between these two signals is given by
+
+$$
+\begin{aligned}
+    \triangle\Theta = 2\pi f \tau_1 + \pi - 2\pi f \tau_2 = \frac{4\pi f}{c}(d-r) + \pi
+\end{aligned}
+$$
+
+where $\tau_1 = \frac{2d-r}{c}$ and $\tau_2 = \frac{r}{c}$. Note that the signals add constructively when $\triangle \Theta$ is a multiple of $2\pi$ and add destructively when $\triangle \Theta$ is an odd integer multiple of $\pi$. This gives rise to a spatial pattern of constructive and destructive superposition.
+
+Thus, the delay spread can be obtained as
+
+$$
+\begin{aligned}
+    T_d = \frac{2d-r}{c} - \frac{r}{c}.
+\end{aligned}
+$$
+
+Besides, this constructive and destructive interference also depends on frequency. When the frequency changes by $\frac{1}{2}(\tau_2-\tau_1)^{-1}$, the interference pattern changes completely. Thus, the coherence bandwidth can be expressed as
+
+$$
+\begin{aligned}
+    B_C = \frac{1}{T_d}.
+\end{aligned}
+$$
+
+In practice, a larger delay spread implies a shorter coherence bandwidth and vice versa. Systems with higher delay spread may require more sophisticated equalization techniques to mitigate the effects of interference caused by the spread of signal arrival times.
+ 
+In our experiment, Scenario 3 is a combination of both the above explained scenarios and we can visualize all the parameters simultaneously in it.
+
+Wireless channel modeling helps us capture key effects like Doppler shift, delay spread, coherence time, and coherence bandwidth. These parameters describe how the channel changes with time and frequency, and they directly impact system design and performance. By understanding these models, we can make the right approximations, choose suitable modulation and coding schemes, and design reliable communication systems that work well in realistic environments.
+
+
+
+
