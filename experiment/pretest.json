@@ -58,7 +58,7 @@
         "a": "Constructive",
         "b": "Destructive",
         "c": "Both are possible",
-        "d": "Can't say"
+        "d": "No possible interference"
       },
       "explanations": {
         "a": "Incorrect – constructive occurs only when phases align.",
