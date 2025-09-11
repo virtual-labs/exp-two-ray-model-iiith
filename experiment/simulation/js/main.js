@@ -67,12 +67,23 @@ window.setScenario = (num) => {
     rebuildSignalUI();
 
     const velocityInputs = document.getElementById('velocity-inputs');
+    const velocityInput = document.getElementById('velocity');
     const sc2Inputs = document.getElementById('scenario2-inputs');
     const sc3Inputs = document.getElementById('scenario3-inputs');
 
     velocityInputs.style.display = (num === 1 || num === 3) ? 'block' : 'none';
     sc2Inputs.style.display = num === 2 ? 'block' : 'none';
     sc3Inputs.style.display = num === 3 ? 'block' : 'none';
+
+    if (num === 1) {
+        velocityInput.max = 25;
+    } else if (num === 3) {
+        velocityInput.max = 50;
+    }
+
+    if (parseFloat(velocityInput.value) > parseFloat(velocityInput.max)) {
+        velocityInput.value = velocityInput.max;
+    }
 
     resultsDiv.innerHTML = `<p>Scenario ${num} selected. Configure inputs and click 'Start'.</p>`;
 
@@ -106,18 +117,27 @@ window.startCalculation = () => {
     cancelAnimationFrame(animationFrame);
     animationFrame = null;
     
-    messageDiv.textContent = '';
+    messageDiv.textContent = ''; // Clear previous messages
     let vel;
 
     try {
         frequency = parseFloat(document.getElementById('frequency').value) * 1e6;
         vel = parseFloat(document.getElementById('velocity').value);
+
+        // --- NEW VALIDATION LOGIC ---
+        // Check if it's Scenario 1 AND the velocity exceeds 25
+        if (currentScenario === 1 && vel > 25) {
+            // If it does, throw an error to stop the function and show a message
+            throw new Error('For Scenario 1, receiver velocity must be 25 m/s or less.');
+        }
+        // --- END OF NEW LOGIC ---
+
         if (isNaN(frequency) || frequency <= 0 || (currentScenario !== 2 && (isNaN(vel) || vel < 0))) {
             throw new Error('Please enter valid, positive numbers for all fields.');
         }
     } catch (e) {
         messageDiv.textContent = e.message;
-        return;
+        return; 
     }
 
     // Reset receiver properties completely
