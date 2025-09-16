@@ -419,13 +419,11 @@ function drawSignal() {
         const directCanvas = document.getElementById('directSignalCanvas');
         if (directCanvas) {
             drawIndividualSignal(directCanvas, directSignalHistory, '#2563eb', true);
-            drawInterferenceIndicators(directCanvas, signalHistory); // Add indicators
         }
 
         const reflectedCanvas = document.getElementById('reflectedSignalCanvas');
         if (reflectedCanvas) {
             drawIndividualSignal(reflectedCanvas, reflectedSignalHistory, '#dc2626', true);
-            drawInterferenceIndicators(reflectedCanvas, signalHistory); // Add indicators
         }
     }
 
@@ -437,6 +435,7 @@ function drawSignal() {
     }
 }
 
+// 1. Updated drawIndividualSignal function - change Time label to Time (μs)
 function drawIndividualSignal(canvas, history, color, drawAxes = false) {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -448,17 +447,22 @@ function drawIndividualSignal(canvas, history, color, drawAxes = false) {
         ctx.strokeStyle = '#999';
         ctx.lineWidth = 1;
         const center_y = canvas.height / 2;
+        const axis_x = 30;
         ctx.beginPath();
-        ctx.moveTo(30, center_y);
+        ctx.moveTo(axis_x, center_y);
         ctx.lineTo(canvas.width - 10, center_y); // X-axis
-        ctx.moveTo(30, 10);
-        ctx.lineTo(30, canvas.height - 10); // Y-axis
+        ctx.moveTo(axis_x, 10);
+        ctx.lineTo(axis_x, canvas.height - 10); // Y-axis
         ctx.stroke();
 
         ctx.fillStyle = '#555';
         ctx.font = '10px Arial';
         ctx.textAlign = 'center';
-        ctx.fillText('Time', canvas.width / 2, canvas.height - 5);
+
+        // X-axis label - CHANGED FROM 'Time' to 'Time (μs)'
+        ctx.fillText('Time (μs)', canvas.width / 2, canvas.height - 5);
+
+        // Draw Amplitude Label (Y-axis)
         ctx.save();
         ctx.translate(15, center_y);
         ctx.rotate(-Math.PI / 2);
@@ -486,51 +490,103 @@ function drawIndividualSignal(canvas, history, color, drawAxes = false) {
     ctx.stroke();
 }
 
+// 2. Improved drawInterferenceIndicators function with better logic
 function drawInterferenceIndicators(canvas, history) {
+    if (history.length < 10) return; // Need enough data points
+    
     const ctx = canvas.getContext('2d');
     const stepX = (canvas.width - 30) / (maxSignalPoints - 1);
     
-    if (history.length < 10) return; // Need enough data points
+    // Calculate signal envelope and phase relationships
+    const windowSize = 15; // Smaller window for more responsive detection
+    const interferenceRegions = [];
     
-    // Find global max and min amplitudes
-    const amplitudes = history.map(val => Math.abs(val));
-    const maxAmplitude = Math.max(...amplitudes);
-    const minAmplitude = Math.min(...amplitudes);
-    
-    // Find indices of global max and min
-    const maxIndex = amplitudes.indexOf(maxAmplitude);
-    const minIndex = amplitudes.indexOf(minAmplitude);
-    
-    // Draw line for maximum constructive interference (global max)
-    if (maxAmplitude > 0.1) { // Threshold to avoid noise
-        const x = 30 + maxIndex * stepX;
-        ctx.strokeStyle = '#22c55e'; // Green for constructive
-        ctx.lineWidth = 2;
-        ctx.globalAlpha = 0.8;
+    for (let i = windowSize; i < history.length - windowSize; i++) {
+        const window = history.slice(i - windowSize, i + windowSize);
         
-        ctx.beginPath();
-        ctx.moveTo(x, 5);
-        ctx.lineTo(x, canvas.height - 5);
-        ctx.stroke();
+        // Calculate local statistics
+        const avgAmplitude = window.reduce((sum, val) => sum + Math.abs(val), 0) / window.length;
+        const maxAmplitude = Math.max(...window.map(val => Math.abs(val)));
+        const variance = window.reduce((sum, val) => sum + Math.pow(Math.abs(val) - avgAmplitude, 2), 0) / window.length;
         
-        ctx.globalAlpha = 1.0;
+        // Improved interference detection
+        let interferenceType = 'neutral';
+        
+        // Constructive interference: high amplitude with low variance (stable high signal)
+        if (maxAmplitude > 0.7 && avgAmplitude > 0.5 && variance < 0.1) {
+            interferenceType = 'constructive';
+        }
+        // Destructive interference: consistently low amplitude
+        else if (maxAmplitude < 0.4 && avgAmplitude < 0.25) {
+            interferenceType = 'destructive';
+        }
+        // Rapid fluctuation: high variance indicates signal instability
+        else if (variance > 0.15 && avgAmplitude > 0.3) {
+            interferenceType = 'mixed';
+        }
+        
+        interferenceRegions.push({
+            index: i,
+            type: interferenceType,
+            strength: avgAmplitude
+        });
     }
     
-    // Draw line for minimum destructive interference (global min)
-    if (maxAmplitude - minAmplitude > 0.2) { // Only if there's significant difference
-        const x = 30 + minIndex * stepX;
-        ctx.strokeStyle = '#ef4444'; // Red for destructive
-        ctx.lineWidth = 2;
-        ctx.globalAlpha = 0.8;
+    // Draw interference regions with smooth transitions
+    ctx.globalAlpha = 0.3;
+    
+    for (let i = 0; i < interferenceRegions.length - 1; i++) {
+        const region = interferenceRegions[i];
+        const x = 30 + region.index * stepX;
+        const width = stepX * 3; // Slightly wider regions for visibility
         
-        ctx.beginPath();
-        ctx.moveTo(x, 5);
-        ctx.lineTo(x, canvas.height - 5);
-        ctx.stroke();
+        switch (region.type) {
+            case 'constructive':
+                // Green gradient for constructive interference
+                const constructiveGradient = ctx.createLinearGradient(x, 0, x, canvas.height);
+                constructiveGradient.addColorStop(0, 'rgba(34, 197, 94, 0.4)');
+                constructiveGradient.addColorStop(1, 'rgba(34, 197, 94, 0.1)');
+                ctx.fillStyle = constructiveGradient;
+                ctx.fillRect(x, 0, width, canvas.height);
+                break;
+                
+            case 'destructive':
+                // Red gradient for destructive interference
+                const destructiveGradient = ctx.createLinearGradient(x, 0, x, canvas.height);
+                destructiveGradient.addColorStop(0, 'rgba(239, 68, 68, 0.4)');
+                destructiveGradient.addColorStop(1, 'rgba(239, 68, 68, 0.1)');
+                ctx.fillStyle = destructiveGradient;
+                ctx.fillRect(x, 0, width, canvas.height);
+                break;
+                
+            case 'mixed':
+                // Orange/yellow for mixed/transitional interference
+                ctx.fillStyle = 'rgba(245, 158, 11, 0.2)';
+                ctx.fillRect(x, 0, width, canvas.height);
+                break;
+        }
+    }
+    
+    ctx.globalAlpha = 1.0; // Reset alpha
+    
+    // Add subtle indicators at the bottom for interference strength
+    ctx.font = '8px Arial';
+    ctx.textAlign = 'center';
+    
+    for (let i = 0; i < interferenceRegions.length; i += 20) { // Show fewer labels to avoid clutter
+        const region = interferenceRegions[i];
+        const x = 30 + region.index * stepX;
         
-        ctx.globalAlpha = 1.0;
+        if (region.type === 'constructive') {
+            ctx.fillStyle = '#16a34a';
+            ctx.fillText('C', x, canvas.height - 2);
+        } else if (region.type === 'destructive') {
+            ctx.fillStyle = '#dc2626';
+            ctx.fillText('D', x, canvas.height - 2);
+        }
     }
 }
+
 
 // --- DRAWING FUNCTIONS ---
 function draw() {
