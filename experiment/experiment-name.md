@@ -1,1 +1,1 @@
-# Illustrative scenarios of wireless channels
+# Illustrative Scenarios of Wireless Channels
