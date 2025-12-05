@@ -1,0 +1,10 @@
+
+/home/runner/work/exp-two-ray-model-iiith/exp-two-ray-model-iiith/experiment/simulation/js/main.js
+   41:5   warning  'setScenario' is not defined                          no-undef
+  175:5   warning  'setScenario' is not defined                          no-undef
+  392:11  warning  'phaseDifference' is assigned a value but never used  no-unused-vars
+  546:17  warning  Unexpected lexical declaration in case block          no-case-declarations
+  555:17  warning  Unexpected lexical declaration in case block          no-case-declarations
+
+✖ 5 problems (0 errors, 5 warnings)
+
