@@ -39,6 +39,10 @@ function onAllImagesLoaded() {
     console.log("All images loaded successfully. Initializing simulation.");
     rebuildSignalUI(); // Initial setup
     setScenario(1);
+
+    // ADDED: Initialize instruction logic
+    setupInstructionListeners();
+    highlightInstruction('step-1');
 }
 
 function imageLoaded() {
@@ -46,6 +50,44 @@ function imageLoaded() {
     if (imagesLoaded === totalImages) {
         onAllImagesLoaded();
     }
+}
+
+// ADDED: New helper function for highlighting
+function highlightInstruction(stepId) {
+    // Remove active class from all steps
+    for (let i = 1; i <= 7; i++) {
+        const step = document.getElementById(`step-${i}`);
+        if (step) step.classList.remove('active-instruction');
+    }
+    // Add active class to target step
+    const target = document.getElementById(stepId);
+    if (target) {
+        target.classList.add('active-instruction');
+        // Optional: scroll to instruction if needed on mobile
+    }
+}
+
+// ADDED: Setup listeners for inputs to trigger specific steps
+function setupInstructionListeners() {
+    // Step 2: Parameter Configuration (Frequency, Velocity)
+    ['frequency', 'velocity'].forEach(id => {
+        const elem = document.getElementById(id);
+        if(elem) {
+            elem.addEventListener('focus', () => highlightInstruction('step-2'));
+            elem.addEventListener('input', () => highlightInstruction('step-2'));
+        }
+    });
+
+    // Step 3: Environmental Setup (Wall Sliders)
+    ['wallSlider', 'wallSlider3'].forEach(id => {
+        const elem = document.getElementById(id);
+        if(elem) {
+            elem.addEventListener('input', () => highlightInstruction('step-3'));
+            // Also trigger on mousedown/touch to highlight immediately
+            elem.addEventListener('mousedown', () => highlightInstruction('step-3'));
+            elem.addEventListener('touchstart', () => highlightInstruction('step-3'));
+        }
+    });
 }
 
 transmitter.img.src = './images/antenna-svgrepo-com.svg'; // antenna
@@ -60,6 +102,9 @@ receiver.img.onerror = () => console.error("Failed to load receiver image. Check
 
 // --- CONTROL FUNCTIONS ---
 window.setScenario = (num) => {
+    // ADDED: Highlight Step 1 when scenario changes
+    highlightInstruction('step-1');
+
     cancelAnimationFrame(animationFrame);
     animationFrame = null;
     currentScenario = num;
@@ -113,6 +158,9 @@ window.setScenario = (num) => {
 }
 
 window.startCalculation = () => {
+    // ADDED: Highlight Step 4 (Execution) immediately
+    highlightInstruction('step-4');
+
     // Cancel any existing animation first
     cancelAnimationFrame(animationFrame);
     animationFrame = null;
@@ -160,10 +208,20 @@ window.startCalculation = () => {
     reflectedSignalHistory.length = 0;
     currentPhase = 0;
 
+    // ADDED: Transition to Step 5 (Analysis) shortly after simulation starts
+    setTimeout(() => {
+        if (animationFrame) { // Only if simulation is still running
+            highlightInstruction('step-5');
+        }
+    }, 1500); // 1.5 second delay to let user see "Execution" first
+
     animate();
 }
 
 window.resetSimulation = () => {
+    // ADDED: Highlight Step 7 (Reset)
+    highlightInstruction('step-7');
+
     cancelAnimationFrame(animationFrame);
     animationFrame = null;
     document.getElementById('velocity').value = "20";
@@ -173,6 +231,9 @@ window.resetSimulation = () => {
     document.getElementById('scenario1').checked = true;
     messageDiv.textContent = '';
     setScenario(1);
+
+    // After reset is done, perhaps guide them back to Step 1 after a moment?
+    setTimeout(() => highlightInstruction('step-1'), 2000);
 }
 
 // --- ANIMATION & SCENARIO LOGIC ---
