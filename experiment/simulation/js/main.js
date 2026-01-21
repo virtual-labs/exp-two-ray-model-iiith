@@ -39,6 +39,10 @@ function onAllImagesLoaded() {
     console.log("All images loaded successfully. Initializing simulation.");
     rebuildSignalUI(); // Initial setup
     setScenario(1);
+
+    // ADDED: Initialize instruction logic
+    setupInstructionListeners();
+    highlightInstruction('step-1');
 }
 
 function imageLoaded() {
@@ -46,6 +50,44 @@ function imageLoaded() {
     if (imagesLoaded === totalImages) {
         onAllImagesLoaded();
     }
+}
+
+// ADDED: New helper function for highlighting
+function highlightInstruction(stepId) {
+    // Remove active class from all steps
+    for (let i = 1; i <= 7; i++) {
+        const step = document.getElementById(`step-${i}`);
+        if (step) step.classList.remove('active-instruction');
+    }
+    // Add active class to target step
+    const target = document.getElementById(stepId);
+    if (target) {
+        target.classList.add('active-instruction');
+        // Optional: scroll to instruction if needed on mobile
+    }
+}
+
+// ADDED: Setup listeners for inputs to trigger specific steps
+function setupInstructionListeners() {
+    // Step 2: Parameter Configuration (Frequency, Velocity)
+    ['frequency', 'velocity'].forEach(id => {
+        const elem = document.getElementById(id);
+        if(elem) {
+            elem.addEventListener('focus', () => highlightInstruction('step-2'));
+            elem.addEventListener('input', () => highlightInstruction('step-2'));
+        }
+    });
+
+    // Step 3: Environmental Setup (Wall Sliders)
+    ['wallSlider', 'wallSlider3'].forEach(id => {
+        const elem = document.getElementById(id);
+        if(elem) {
+            elem.addEventListener('input', () => highlightInstruction('step-3'));
+            // Also trigger on mousedown/touch to highlight immediately
+            elem.addEventListener('mousedown', () => highlightInstruction('step-3'));
+            elem.addEventListener('touchstart', () => highlightInstruction('step-3'));
+        }
+    });
 }
 
 transmitter.img.src = './images/antenna-svgrepo-com.svg'; // antenna
@@ -60,6 +102,9 @@ receiver.img.onerror = () => console.error("Failed to load receiver image. Check
 
 // --- CONTROL FUNCTIONS ---
 window.setScenario = (num) => {
+    // ADDED: Highlight Step 1 when scenario changes
+    highlightInstruction('step-1');
+
     cancelAnimationFrame(animationFrame);
     animationFrame = null;
     currentScenario = num;
@@ -113,6 +158,9 @@ window.setScenario = (num) => {
 }
 
 window.startCalculation = () => {
+    // ADDED: Highlight Step 4 (Execution) immediately
+    highlightInstruction('step-4');
+
     // Cancel any existing animation first
     cancelAnimationFrame(animationFrame);
     animationFrame = null;
@@ -160,10 +208,20 @@ window.startCalculation = () => {
     reflectedSignalHistory.length = 0;
     currentPhase = 0;
 
+    // ADDED: Transition to Step 5 (Analysis) shortly after simulation starts
+    setTimeout(() => {
+        if (animationFrame) { // Only if simulation is still running
+            highlightInstruction('step-5');
+        }
+    }, 1500); // 1.5 second delay to let user see "Execution" first
+
     animate();
 }
 
 window.resetSimulation = () => {
+    // ADDED: Highlight Step 7 (Reset)
+    highlightInstruction('step-7');
+
     cancelAnimationFrame(animationFrame);
     animationFrame = null;
     document.getElementById('velocity').value = "20";
@@ -173,6 +231,9 @@ window.resetSimulation = () => {
     document.getElementById('scenario1').checked = true;
     messageDiv.textContent = '';
     setScenario(1);
+
+    // After reset is done, perhaps guide them back to Step 1 after a moment?
+    setTimeout(() => highlightInstruction('step-1'), 2000);
 }
 
 // --- ANIMATION & SCENARIO LOGIC ---
@@ -325,10 +386,11 @@ function rebuildSignalUI() {
 
         // Add legend
         const legend = document.createElement('div');
-        legend.style.cssText = 'display: flex; justify-content: center; gap: 20px; margin: 5px 0; font-size: 12px;';
+        legend.style.cssText = 'display: flex; justify-content: center; gap: 15px; margin: 5px 0; font-size: 11px;';
         legend.innerHTML = `
-            <span style="color: #22c55e;">▬ Constructive Interference</span>
-            <span style="color: #ef4444;">▬ Destructive Interference</span>
+            <span style="color: #22c55e;">■ Constructive Interference (High Amplitude)</span>
+            <span style="color: #f59e0b;">■ Partial Interference (Medium)</span>
+            <span style="color: #ef4444;">■ Destructive Interference (Low Amplitude)</span>
         `;
         container.appendChild(legend);
     } else {
@@ -490,103 +552,87 @@ function drawIndividualSignal(canvas, history, color, drawAxes = false) {
     ctx.stroke();
 }
 
-// 2. Improved drawInterferenceIndicators function with better logic
+// 2. Corrected drawInterferenceIndicators function - shows where peaks align/cancel
 function drawInterferenceIndicators(canvas, history) {
-    if (history.length < 10) return; // Need enough data points
+    if (history.length < 10 || currentScenario !== 2) return;
     
     const ctx = canvas.getContext('2d');
     const stepX = (canvas.width - 30) / (maxSignalPoints - 1);
     
-    // Calculate signal envelope and phase relationships
-    const windowSize = 15; // Smaller window for more responsive detection
-    const interferenceRegions = [];
+    // Calculate actual phase difference from path difference
+    const directPath = Math.hypot(receiver.x - transmitter.x, receiver.y - transmitter.y);
+    const tx_image_x = wall.x + (wall.x - transmitter.x);
+    const reflectedPath = Math.hypot(receiver.x - tx_image_x, receiver.y - transmitter.y);
+    const pathDifference = reflectedPath - directPath;
+    const wavelength = c / frequency;
+    const phaseDifference = (2 * Math.PI * pathDifference) / wavelength;
     
-    for (let i = windowSize; i < history.length - windowSize; i++) {
-        const window = history.slice(i - windowSize, i + windowSize);
-        
-        // Calculate local statistics
-        const avgAmplitude = window.reduce((sum, val) => sum + Math.abs(val), 0) / window.length;
-        const maxAmplitude = Math.max(...window.map(val => Math.abs(val)));
-        const variance = window.reduce((sum, val) => sum + Math.pow(Math.abs(val) - avgAmplitude, 2), 0) / window.length;
-        
-        // Improved interference detection
-        let interferenceType = 'neutral';
-        
-        // Constructive interference: high amplitude with low variance (stable high signal)
-        if (maxAmplitude > 0.7 && avgAmplitude > 0.5 && variance < 0.1) {
-            interferenceType = 'constructive';
-        }
-        // Destructive interference: consistently low amplitude
-        else if (maxAmplitude < 0.4 && avgAmplitude < 0.25) {
-            interferenceType = 'destructive';
-        }
-        // Rapid fluctuation: high variance indicates signal instability
-        else if (variance > 0.15 && avgAmplitude > 0.3) {
-            interferenceType = 'mixed';
-        }
-        
-        interferenceRegions.push({
-            index: i,
-            type: interferenceType,
-            strength: avgAmplitude
-        });
-    }
+    // Normalize phase difference to [0, 2π]
+    const normalizedPhase = ((phaseDifference % (2 * Math.PI)) + (2 * Math.PI)) % (2 * Math.PI);
     
-    // Draw interference regions with smooth transitions
-    ctx.globalAlpha = 0.3;
+    // Determine if we have constructive or destructive interference
+    // Constructive: phase ≈ 0, 2π (cos(phase) ≈ 1)
+    // Destructive: phase ≈ π (cos(phase) ≈ -1)
+    const cosineFactor = Math.cos(normalizedPhase);
     
-    for (let i = 0; i < interferenceRegions.length - 1; i++) {
-        const region = interferenceRegions[i];
-        const x = 30 + region.index * stepX;
-        const width = stepX * 3; // Slightly wider regions for visibility
+    ctx.globalAlpha = 0.25;
+    
+    // Check both direct and reflected signal histories
+    for (let i = 0; i < Math.min(directSignalHistory.length, reflectedSignalHistory.length); i++) {
+        const directVal = directSignalHistory[i];
+        const reflectedVal = reflectedSignalHistory[i];
+        const combinedVal = history[i];
         
-        switch (region.type) {
-            case 'constructive':
-                // Green gradient for constructive interference
-                const constructiveGradient = ctx.createLinearGradient(x, 0, x, canvas.height);
-                constructiveGradient.addColorStop(0, 'rgba(34, 197, 94, 0.4)');
-                constructiveGradient.addColorStop(1, 'rgba(34, 197, 94, 0.1)');
-                ctx.fillStyle = constructiveGradient;
-                ctx.fillRect(x, 0, width, canvas.height);
-                break;
-                
-            case 'destructive':
-                // Red gradient for destructive interference
-                const destructiveGradient = ctx.createLinearGradient(x, 0, x, canvas.height);
-                destructiveGradient.addColorStop(0, 'rgba(239, 68, 68, 0.4)');
-                destructiveGradient.addColorStop(1, 'rgba(239, 68, 68, 0.1)');
-                ctx.fillStyle = destructiveGradient;
-                ctx.fillRect(x, 0, width, canvas.height);
-                break;
-                
-            case 'mixed':
-                // Orange/yellow for mixed/transitional interference
-                ctx.fillStyle = 'rgba(245, 158, 11, 0.2)';
-                ctx.fillRect(x, 0, width, canvas.height);
-                break;
+        const x = 30 + i * stepX;
+        const width = stepX * 1.5;
+        
+        // Check if signals are adding constructively or destructively at this point
+        // Constructive: both signals have same sign and combined amplitude is high
+        // Destructive: signals have opposite signs and combined amplitude is low
+        
+        const bothPositive = directVal > 0.3 && reflectedVal > 0.3;
+        const bothNegative = directVal < -0.3 && reflectedVal < -0.3;
+        const opposingSigns = (directVal > 0.3 && reflectedVal < -0.3) || (directVal < -0.3 && reflectedVal > 0.3);
+        
+        if (bothPositive || bothNegative) {
+            // Signals adding constructively
+            const gradient = ctx.createLinearGradient(x, 0, x, canvas.height);
+            gradient.addColorStop(0, 'rgba(34, 197, 94, 0.4)');
+            gradient.addColorStop(1, 'rgba(34, 197, 94, 0.1)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(x, 0, width, canvas.height);
+        } else if (opposingSigns) {
+            // Signals canceling destructively
+            const gradient = ctx.createLinearGradient(x, 0, x, canvas.height);
+            gradient.addColorStop(0, 'rgba(239, 68, 68, 0.4)');
+            gradient.addColorStop(1, 'rgba(239, 68, 68, 0.1)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(x, 0, width, canvas.height);
         }
     }
     
-    ctx.globalAlpha = 1.0; // Reset alpha
+    ctx.globalAlpha = 1.0;
     
-    // Add subtle indicators at the bottom for interference strength
-    ctx.font = '8px Arial';
+    // Add indicators showing overall interference state
+    ctx.font = '10px Arial';
     ctx.textAlign = 'center';
     
-    for (let i = 0; i < interferenceRegions.length; i += 20) { // Show fewer labels to avoid clutter
-        const region = interferenceRegions[i];
-        const x = 30 + region.index * stepX;
-        
-        if (region.type === 'constructive') {
-            ctx.fillStyle = '#16a34a';
-            ctx.fillText('C', x, canvas.height - 2);
-        } else if (region.type === 'destructive') {
-            ctx.fillStyle = '#dc2626';
-            ctx.fillText('D', x, canvas.height - 2);
-        }
+    // Overall characterization based on phase difference
+    let overallType = '';
+    if (Math.abs(cosineFactor) > 0.7) {
+        overallType = cosineFactor > 0 ? 'Mostly Constructive' : 'Mostly Destructive';
+    } else {
+        overallType = 'Mixed Interference';
     }
+    
+    ctx.fillStyle = cosineFactor > 0.7 ? '#16a34a' : cosineFactor < -0.7 ? '#dc2626' : '#d97706';
+    ctx.fillText(overallType, canvas.width / 2, 15);
+    
+    // Show phase info
+    ctx.font = '9px Arial';
+    ctx.fillStyle = '#666';
+    ctx.fillText(`Phase Diff: ${(normalizedPhase * 180 / Math.PI).toFixed(1)}°`, canvas.width / 2, canvas.height - 2);
 }
-
 
 // --- DRAWING FUNCTIONS ---
 function draw() {
