@@ -136,6 +136,40 @@
       },
       "correctAnswer": "d",
       "difficulty": "beginner"
+    },
+    {
+      "question": "When an electromagnetic wave reflects off a perfectly conducting ground, what phase shift is typically introduced to the reflected signal?",
+      "answers": {
+        "a": "0 degrees",
+        "b": "90 degrees (π/2 radians)",
+        "c": "180 degrees (π radians)",
+        "d": "Depends on the frequency"
+      },
+      "explanations": {
+        "a": "Incorrect – a phase shift occurs upon reflection from a denser/conductive medium.",
+        "b": "Incorrect – the shift is typically 180 degrees.",
+        "c": "Correct – a reflection from a perfectly conducting ground introduces a 180-degree (π radians) phase inversion.",
+        "d": "Incorrect – for perfect conductors, the phase inversion is independent of frequency."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "How does the instantaneous Doppler shift vary with the angle of arrival (θ) of the incoming wave relative to the receiver's direction of motion?",
+      "answers": {
+        "a": "It is proportional to sin(θ)",
+        "b": "It is proportional to cos(θ)",
+        "c": "It is independent of the angle",
+        "d": "It is inversely proportional to cos(θ)"
+      },
+      "explanations": {
+        "a": "Incorrect – the projection of velocity onto the signal path uses cosine.",
+        "b": "Correct – the Doppler shift is given by the equation fd = (v/c) * f * cos(θ).",
+        "c": "Incorrect – direction strictly determines the magnitude and sign of the shift.",
+        "d": "Incorrect – it is directly proportional to cos(θ)."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
     }
   ]
 }

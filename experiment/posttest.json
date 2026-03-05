@@ -136,6 +136,40 @@
       },
       "correctAnswer": "a",
       "difficulty": "intermediate"
+    },
+    {
+      "question": "A mobile receiver is moving at 30 m/s directly towards a base station transmitting at a carrier frequency of 900 MHz. Using the Doppler shift equation fd = (v/c)*fc, what is the maximum Doppler shift? (Speed of light c = 3×10^8 m/s)",
+      "answers": {
+        "a": "90 Hz",
+        "b": "30 Hz",
+        "c": "120 Hz",
+        "d": "900 Hz"
+      },
+      "explanations": {
+        "a": "Correct – fd = (30 / 3e8) * 900e6 = 90 Hz.",
+        "b": "Incorrect – missing the frequency component in the calculation.",
+        "c": "Incorrect – check the formula fd = (v/c)*fc.",
+        "d": "Incorrect – calculation error."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "According to the exact two-ray ground reflection model approximation for large distances, received power Pr is proportional to (ht * hr)² / d⁴. If the heights of BOTH the transmitting (ht) and receiving (hr) antennas are doubled, how does the received signal power change?",
+      "answers": {
+        "a": "It doubles (increases by a factor of 2)",
+        "b": "It increases by a factor of 4",
+        "c": "It increases by a factor of 16",
+        "d": "It remains the same"
+      },
+      "explanations": {
+        "a": "Incorrect – power is proportional to the square of the product of both heights.",
+        "b": "Incorrect – it's proportional to (ht * hr)². Doubling both means (2 * 2)² = 16.",
+        "c": "Correct – Doubling both heights yields a factor of 2² * 2² = 16. The received power increases by a factor of 16.",
+        "d": "Incorrect – antenna heights strongly influence received power at large distances."
+      },
+      "correctAnswer": "c",
+      "difficulty": "advanced"
     }
   ]
 }
