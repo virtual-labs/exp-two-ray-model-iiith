@@ -32,6 +32,13 @@ const maxSignalPoints = 400;
 const baseCarrierFreq = 0.4;
 const dt_visual = 0.08;
 
+let metricsHistory = {
+    scenario1: { time: [], dopplerShift: [], velocity: [] },
+    scenario2: { wallPosition: [], delaySpread: [], coherenceBW: [], phaseShift: [] },
+    scenario3: { time: [], dopplerShift: [], delaySpread: [], coherenceBW: [] }
+};
+let chartUpdateCounter = 0;
+
 let imagesLoaded = 0;
 const totalImages = 2;
 
@@ -321,31 +328,164 @@ function calculateInstantaneousDopplerShift() {
 
 function updateScenario1Results() {
     const dopplerShift = calculateInstantaneousDopplerShift();
-    resultsDiv.innerHTML = `<p><strong>Max Doppler (fd):</strong> ${maxDopplerShift.toFixed(2)} Hz</p><p><strong>Inst. Doppler:</strong> ${dopplerShift.toFixed(2)} Hz</p>`;
+    const wavelength = c / frequency;
+    const coherenceTime = (maxDopplerShift > 0) ? 1 / (2 * maxDopplerShift) : Infinity;
+    
+    resultsDiv.innerHTML = `
+        <h3 style="color: #2563eb; margin-bottom: 15px;">Scenario 1: Doppler Effect Metrics</h3>
+        
+        <div style="background: #f0f9ff; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <p style="margin: 5px 0;"><strong>Carrier Frequency (fc):</strong> ${(frequency / 1e6).toFixed(2)} MHz</p>
+            <p style="margin: 5px 0;"><strong>Wavelength (λ):</strong> ${wavelength.toFixed(4)} m</p>
+            <p style="margin: 5px 0;"><strong>Receiver Velocity (v):</strong> ${receiver.velocity} m/s</p>
+        </div>
+        
+        <div style="background: #fef3c7; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <h4 style="color: #92400e; margin: 0 0 8px 0;">Doppler Parameters</h4>
+            <p style="margin: 5px 0;"><strong>Max Doppler Shift (fd,max):</strong> ${maxDopplerShift.toFixed(2)} Hz</p>
+            <p style="margin: 5px 0;"><strong>Instantaneous Doppler:</strong> ${dopplerShift.toFixed(2)} Hz</p>
+            <p style="margin: 5px 0;"><strong>Doppler Spread (Bd):</strong> ${(2 * maxDopplerShift).toFixed(2)} Hz</p>
+        </div>
+        
+        <div style="background: #dcfce7; padding: 12px; border-radius: 8px;">
+            <h4 style="color: #166534; margin: 0 0 8px 0;">Channel Characteristics</h4>
+            <p style="margin: 5px 0;"><strong>Coherence Time (Tc):</strong> ${isFinite(coherenceTime) ? (coherenceTime * 1000).toFixed(3) + ' ms' : 'Infinite'}</p>
+            <p style="margin: 5px 0; font-size: 11px; color: #666;">Tc = 1/(2 × fd,max) = ${isFinite(coherenceTime) ? (coherenceTime * 1e6).toFixed(2) + ' μs' : 'Inf'}</p>
+            <p style="margin: 5px 0;"><strong>Channel Type:</strong> ${maxDopplerShift > 100 ? 'Fast Fading' : 'Slow Fading'}</p>
+        </div>
+    `;
 }
 
 function updateScenario2Results() {
     const directPath = Math.hypot(receiver.x - transmitter.x, receiver.y - transmitter.y);
     const tx_image_x = wall.x + (wall.x - transmitter.x);
     const reflectedPath = Math.hypot(receiver.x - tx_image_x, receiver.y - transmitter.y);
-    const delaySpread = Math.abs(reflectedPath - directPath) / c;
+    const pathDifference = Math.abs(reflectedPath - directPath);
+    const delaySpread = pathDifference / c;
     const coherenceBW = (delaySpread > 0) ? 1 / (2 * delaySpread) : Infinity;
-
-    resultsDiv.innerHTML = `<p><strong>Delay Spread (τ):</strong> ${(delaySpread * 1e9).toFixed(2)} ns</p><p><strong>Coherence BW (Bc):</strong> ${isFinite(coherenceBW) ? (coherenceBW / 1e6).toFixed(2) + ' MHz' : 'Infinite'}</p>`;
+    const wavelength = c / frequency;
+    const phaseDifference = (2 * Math.PI * pathDifference) / wavelength;
+    const normalizedPhase = ((phaseDifference % (2 * Math.PI)) + (2 * Math.PI)) % (2 * Math.PI);
+    
+    const pathLossDirect_dB = 20 * Math.log10(directPath) + 20 * Math.log10(frequency) - 147.55;
+    const pathLossReflected_dB = 20 * Math.log10(reflectedPath) + 20 * Math.log10(frequency) - 147.55;
+    
+    const cosineFactor = Math.cos(normalizedPhase);
+    let interferenceType = '';
+    let interferenceColor = '';
+    if (cosineFactor > 0.7) {
+        interferenceType = 'Constructive';
+        interferenceColor = '#16a34a';
+    } else if (cosineFactor < -0.7) {
+        interferenceType = 'Destructive';
+        interferenceColor = '#dc2626';
+    } else {
+        interferenceType = 'Partial';
+        interferenceColor = '#d97706';
+    }
+    
+    resultsDiv.innerHTML = `
+        <h3 style="color: #dc2626; margin-bottom: 15px;">Scenario 2: Multipath Metrics</h3>
+        
+        <div style="background: #f0f9ff; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <p style="margin: 5px 0;"><strong>Carrier Frequency:</strong> ${(frequency / 1e6).toFixed(2)} MHz</p>
+            <p style="margin: 5px 0;"><strong>Wavelength (λ):</strong> ${wavelength.toFixed(4)} m</p>
+        </div>
+        
+        <div style="background: #fef3c7; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <h4 style="color: #92400e; margin: 0 0 8px 0;">Path Measurements</h4>
+            <p style="margin: 5px 0;"><strong>Direct Path Length:</strong> ${directPath.toFixed(2)} m</p>
+            <p style="margin: 5px 0;"><strong>Reflected Path Length:</strong> ${reflectedPath.toFixed(2)} m</p>
+            <p style="margin: 5px 0;"><strong>Path Difference (Δd):</strong> ${pathDifference.toFixed(2)} m</p>
+            <p style="margin: 5px 0;"><strong>Excess Delay:</strong> ${(pathDifference / c * 1e9).toFixed(2)} ns</p>
+        </div>
+        
+        <div style="background: #fee2e2; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <h4 style="color: #991b1b; margin: 0 0 8px 0;">Path Loss Analysis</h4>
+            <p style="margin: 5px 0;"><strong>Direct Path Loss:</strong> ${pathLossDirect_dB.toFixed(2)} dB</p>
+            <p style="margin: 5px 0;"><strong>Reflected Path Loss:</strong> ${pathLossReflected_dB.toFixed(2)} dB</p>
+        </div>
+        
+        <div style="background: #f3e8ff; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <h4 style="color: #6b21a8; margin: 0 0 8px 0;">Phase & Interference</h4>
+            <p style="margin: 5px 0;"><strong>Phase Difference:</strong> ${(normalizedPhase * 180 / Math.PI).toFixed(1)}° (${(normalizedPhase).toFixed(3)} rad)</p>
+            <p style="margin: 5px 0;"><strong>Interference Type:</strong> <span style="color: ${interferenceColor}; font-weight: bold;">${interferenceType}</span></p>
+            <p style="margin: 5px 0; font-size: 11px; color: #666;">cos(Δφ) = ${cosineFactor.toFixed(3)}</p>
+        </div>
+        
+        <div style="background: #dcfce7; padding: 12px; border-radius: 8px;">
+            <h4 style="color: #166534; margin: 0 0 8px 0;">Channel Characteristics</h4>
+            <p style="margin: 5px 0;"><strong>Delay Spread (τ):</strong> ${(delaySpread * 1e9).toFixed(2)} ns</p>
+            <p style="margin: 5px 0;"><strong>RMS Delay Spread:</strong> ${(delaySpread * 1e9 / Math.sqrt(2)).toFixed(2)} ns</p>
+            <p style="margin: 5px 0;"><strong>Coherence BW (Bc):</strong> ${isFinite(coherenceBW) ? (coherenceBW / 1e6).toFixed(2) + ' MHz' : 'Infinite'}</p>
+            <p style="margin: 5px 0; font-size: 11px; color: #666;">Bc ≈ 1/(2τ) = ${isFinite(coherenceBW) ? (coherenceBW / 1e3).toFixed(2) + ' kHz' : 'Inf'}</p>
+            <p style="margin: 5px 0;"><strong>Channel Type:</strong> ${coherenceBW < 1e6 ? 'Frequency Selective' : 'Flat Fading'}</p>
+        </div>
+    `;
 }
 
 function updateScenario3Results() {
     const directPath = Math.hypot(receiver.x - transmitter.x, receiver.y - transmitter.y);
     const tx_image_x = wall.x + (wall.x - transmitter.x);
     const reflectedPath = Math.hypot(receiver.x - tx_image_x, receiver.y - transmitter.y);
-    const delaySpread = Math.abs(reflectedPath - directPath) / c;
+    const pathDifference = Math.abs(reflectedPath - directPath);
+    const delaySpread = pathDifference / c;
     const coherenceBW = (delaySpread > 0) ? 1 / (2 * delaySpread) : Infinity;
-
+    
     const dopplerShift = calculateInstantaneousDopplerShift();
     const dopplerSpread = maxDopplerShift;
     const coherenceTime = (dopplerSpread > 0) ? 1 / (2 * dopplerSpread) : Infinity;
-
-    resultsDiv.innerHTML = `<p><strong>Inst. Doppler:</strong> ${dopplerShift.toFixed(2)} Hz</p><p><strong>Doppler Spread (fd):</strong> ${dopplerSpread.toFixed(2)} Hz</p><p><strong>Coherence Time (Tc):</strong> ${isFinite(coherenceTime) ? (coherenceTime * 1000).toFixed(2) + ' ms' : 'Inf.'}</p><hr><p><strong>Delay Spread (τ):</strong> ${(delaySpread * 1e9).toFixed(2)} ns</p><p><strong>Coherence BW (Bc):</strong> ${isFinite(coherenceBW) ? (coherenceBW / 1e6).toFixed(2) + ' MHz' : 'Inf.'}</p>`;
+    const wavelength = c / frequency;
+    
+    const pathLossDirect_dB = 20 * Math.log10(directPath) + 20 * Math.log10(frequency) - 147.55;
+    const pathLossReflected_dB = 20 * Math.log10(reflectedPath) + 20 * Math.log10(frequency) - 147.55;
+    
+    const isFreqSelective = coherenceBW < 1e6;
+    const isFastFading = maxDopplerShift > 100;
+    
+    resultsDiv.innerHTML = `
+        <h3 style="color: #7c3aed; margin-bottom: 15px;">Scenario 3: Combined Effects</h3>
+        
+        <div style="background: #f0f9ff; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <p style="margin: 5px 0;"><strong>Frequency:</strong> ${(frequency / 1e6).toFixed(2)} MHz | <strong>Velocity:</strong> ${receiver.velocity} m/s</p>
+            <p style="margin: 5px 0;"><strong>Wavelength:</strong> ${wavelength.toFixed(4)} m</p>
+        </div>
+        
+        <div style="background: #fef3c7; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <h4 style="color: #92400e; margin: 0 0 8px 0;">🔄 Time-Varying (Doppler)</h4>
+            <p style="margin: 5px 0;"><strong>Inst. Doppler Shift:</strong> ${dopplerShift.toFixed(2)} Hz</p>
+            <p style="margin: 5px 0;"><strong>Max Doppler (fd,max):</strong> ${maxDopplerShift.toFixed(2)} Hz</p>
+            <p style="margin: 5px 0;"><strong>Doppler Spread (Bd):</strong> ${(2 * dopplerSpread).toFixed(2)} Hz</p>
+            <p style="margin: 5px 0;"><strong>Coherence Time (Tc):</strong> ${isFinite(coherenceTime) ? (coherenceTime * 1000).toFixed(3) + ' ms' : 'Inf.'}</p>
+            <p style="margin: 5px 0; font-size: 11px; color: #666;">Tc = 1/(2 × fd,max)</p>
+        </div>
+        
+        <div style="background: #fee2e2; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <h4 style="color: #991b1b; margin: 0 0 8px 0;">📡 Frequency-Selective (Multipath)</h4>
+            <p style="margin: 5px 0;"><strong>Direct Path:</strong> ${directPath.toFixed(2)} m | <strong>Loss:</strong> ${pathLossDirect_dB.toFixed(1)} dB</p>
+            <p style="margin: 5px 0;"><strong>Reflected Path:</strong> ${reflectedPath.toFixed(2)} m | <strong>Loss:</strong> ${pathLossReflected_dB.toFixed(1)} dB</p>
+            <p style="margin: 5px 0;"><strong>Path Difference:</strong> ${pathDifference.toFixed(2)} m</p>
+            <p style="margin: 5px 0;"><strong>Delay Spread (τ):</strong> ${(delaySpread * 1e9).toFixed(2)} ns</p>
+            <p style="margin: 5px 0;"><strong>Coherence BW (Bc):</strong> ${isFinite(coherenceBW) ? (coherenceBW / 1e6).toFixed(2) + ' MHz' : 'Inf.'}</p>
+            <p style="margin: 5px 0; font-size: 11px; color: #666;">Bc ≈ 1/(2τ)</p>
+        </div>
+        
+        <div style="background: #dcfce7; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <h4 style="color: #166534; margin: 0 0 8px 0;">📊 Channel Classification</h4>
+            <p style="margin: 5px 0;"><strong>Time Domain:</strong> <span style="color: ${isFastFading ? '#dc2626' : '#16a34a'}; font-weight: bold;">${isFastFading ? 'Fast Fading' : 'Slow Fading'}</span></p>
+            <p style="margin: 5px 0; font-size: 11px; color: #666;">${isFastFading ? 'Channel changes rapidly (Tc < symbol duration)' : 'Channel changes slowly (Tc > symbol duration)'}</p>
+            <p style="margin: 5px 0;"><strong>Frequency Domain:</strong> <span style="color: ${isFreqSelective ? '#dc2626' : '#16a34a'}; font-weight: bold;">${isFreqSelective ? 'Frequency Selective' : 'Flat Fading'}</span></p>
+            <p style="margin: 5px 0; font-size: 11px; color: #666;">${isFreqSelective ? 'Different frequencies fade independently (Bc < signal BW)' : 'All frequencies fade together (Bc > signal BW)'}</p>
+        </div>
+        
+        <div style="background: #f3e8ff; padding: 12px; border-radius: 8px;">
+            <h4 style="color: #6b21a8; margin: 0 0 8px 0;">⚙️ System Design Implications</h4>
+            <p style="margin: 5px 0; font-size: 12px;"><strong>Symbol Duration:</strong> Should be < ${isFinite(coherenceTime) ? (coherenceTime * 1000).toFixed(2) : 'N/A'} ms for coherent detection</p>
+            <p style="margin: 5px 0; font-size: 12px;"><strong>Signal Bandwidth:</strong> Should be < ${isFinite(coherenceBW) ? (coherenceBW / 1e6).toFixed(2) : 'N/A'} MHz to avoid ISI</p>
+            <p style="margin: 5px 0; font-size: 12px;"><strong>Equalization:</strong> ${isFreqSelective ? 'Required (frequency-selective fading)' : 'May not be needed'}</p>
+            <p style="margin: 5px 0; font-size: 12px;"><strong>Diversity:</strong> ${isFastFading || isFreqSelective ? 'Highly recommended' : 'Optional'}</p>
+        </div>
+    `;
 }
 
 // --- SIGNAL PLOTTING ---
