@@ -1,9 +1,7 @@
 Wireless channels operate through electromagnetic radiation from the transmitter to the receiver.
 
-<span style="color:blue">
-In practical wireless communication, the received signal is influenced not only by distance but also by **motion, reflections, and environmental geometry**.  
+In practical wireless communication, the received signal is influenced not only by distance but also by **motion, reflections, and environmental geometry**. 
 Understanding these physical effects intuitively helps connect mathematical channel models to **real system design considerations** such as reliability, data rate, and coverage.
-</span>
 
 <p align="center">
 <img src="./images/Exp3.png" width="430">
@@ -17,9 +15,8 @@ $$
 
 where $c$ is the speed of light, and $\alpha$ is the radiation pattern of the transmitting antenna at frequency $f$ in the direction $(\theta,\psi)$ as shown in the figure. It can be observed that as the distance increases, the electric field decreases resulting in the decline of received power with the increase in the distance between transmitting and receiving antennas.
 
-<span style="color:blue">
 Physically, this decay occurs because electromagnetic energy **spreads over a larger spherical surface** as distance increases, which directly leads to **pathloss** in wireless links.
-</span>
+
 
 However, it is not practical to consider that the receiver is always in a fixed position. Thus, let us consider that the receiver is moving away from transmitter with a velocity $v$. As the receiver moves away, the distance between the subsequent wavefronts of the transmitted EM signal observed by receiving antennas increases. This can be inferred as a decrease in the frequency as shown below.
 
@@ -41,13 +38,10 @@ $$
 f_D = \frac{1}{2\pi} \frac{\triangle\Phi}{\triangle t} = \frac{v}{\lambda} \cos\theta
 $$
 
-<span style="color:blue">
 This relation provides key intuition:
 
 - **Higher user velocity → larger Doppler shift → faster channel variation**
-- **Higher carrier frequency (smaller $\lambda$) → increased Doppler sensitivity**
-
-</span>
+- **Higher carrier frequency (smaller $\lambda$) → increased Doppler shift**
 
 The signal received by the moving antenna in free space can be expressed as
 
@@ -58,7 +52,17 @@ $$
 
 From above expression, the Doppler shift is $-\frac{fv}{c}=\frac{v}{\lambda}$, where the negative sign signifies a drop in frequency when the receiver moves away from the source.
 
-Another closely related concept to understand from doppler shift is the "Coherence time" which is the time duration over which the channel impulse response, or frequency response, remains strongly correlated or predictable. In practical terms, it represents the time scale over which the wireless channel can be considered approximately constant. The coherence time of the channel and the Doppler shift are inversely related. This is because the coherence time dictates how long the channel remains approximately constant, while the Doppler shift affects how rapidly the channel conditions change due to motion. Systems with shorter coherence times require more frequent channel estimation and adaptation to track the rapidly changing channel conditions caused by motion. Conversely, systems with longer coherence times can maintain relatively stable channel estimates for longer duration, requiring less frequent channel estimation and adaption of transmission signal.
+Another closely related concept to understand from doppler shift is the "coherence time," which is the time duration over which the channel impulse response, or frequency response, remains strongly correlated or predictable. In practical terms, it represents the time scale over which the wireless channel can be considered approximately constant. 
+
+The coherence time of the channel and the Doppler shift are inversely related. This relationship is often approximated by the following equation:
+
+$$
+T_c \approx \frac{1}{f_{D,\text{max}}}
+$$
+
+where $T_c$ is the coherence time and $f_{D,\text{max}}$ is the maximum Doppler shift. 
+
+This is because the coherence time dictates how long the channel remains approximately constant, while the Doppler shift affects how rapidly the channel conditions change due to motion. Systems with shorter coherence times require more frequent channel estimation and adaptation to track the rapidly changing channel conditions caused by motion. Conversely, systems with longer coherence times can maintain relatively stable channel estimates for longer duration, requiring less frequent channel estimation and adaption of transmission signal.
 
 ---
 
@@ -70,9 +74,8 @@ Let us now try to understand the effect of obstacles by considering a reflecting
 
 This scenario involves the superposition of a **direct path** and a **reflected path**, giving rise to **delay spread**, defined as the time difference between the first and last arriving signal components.
 
-<span style="color:blue">
 This configuration corresponds to the classical **two-ray propagation model**, widely used in cellular system analysis because it captures the dominant behavior of **ground reflection and line-of-sight propagation**.
-</span>
+
 
 The received signal is
 
@@ -100,15 +103,13 @@ $$
 B_C = \frac{1}{T_d}.
 $$
 
-<span style="color:blue">
 A larger delay spread implies **frequency-selective fading**, requiring **equalization or multicarrier modulation (e.g., OFDM)**, whereas small delay spread leads to **flat fading channels** that are simpler to handle.
-</span>
+
 
 ---
 
 Wireless channel modeling therefore captures **time variation (Doppler), frequency selectivity (delay spread), and large-scale decay (two-ray breakpoint behavior)**.
 
-<span style="color:blue">
 Together, these parameters determine:
 
 - **Channel estimation rate** → governed by Doppler and coherence time  
@@ -116,9 +117,8 @@ Together, these parameters determine:
 - **Cell coverage limits** → governed by pathloss and breakpoint distance  
 
 Hence, understanding these effects is essential for designing **reliable, high-performance wireless communication systems in realistic environments**.
-</span>
 
-<span style="color:blue">
+
 
 ### Summary of Channel Parameters and System Impact
 
@@ -131,5 +131,3 @@ Hence, understanding these effects is essential for designing **reliable, high-p
 | Breakpoint distance $d_{bp}$ | Transition from $1/r^2$ to $1/r^4$ decay | Governs practical cell radius |
 
 Together, these parameters provide a **complete time-frequency characterization** of wireless channels and form the basis for **robust communication system design**.
-
-</span>
