@@ -1,0 +1,11 @@
+
+/home/runner/work/exp-two-ray-model-iiith/exp-two-ray-model-iiith/experiment/simulation/js/main.js
+   35:5   warning  'metricsHistory' is assigned a value but never used      no-unused-vars
+   40:5   warning  'chartUpdateCounter' is assigned a value but never used  no-unused-vars
+   48:5   warning  'setScenario' is not defined                             no-undef
+  240:5   warning  'setScenario' is not defined                             no-undef
+  594:11  warning  'phaseDifference' is assigned a value but never used     no-unused-vars
+  724:15  warning  'combinedVal' is assigned a value but never used         no-unused-vars
+
+✖ 6 problems (0 errors, 6 warnings)
+
